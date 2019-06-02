@@ -1,6 +1,5 @@
-import { EggAppConfig, PowerPartial } from 'egg';
+import { MeYupConfig } from '.';
 
-export default () => {
-  const config: PowerPartial<EggAppConfig> = {};
-  return config;
-};
+export default (): MeYupConfig => ({
+  
+});
