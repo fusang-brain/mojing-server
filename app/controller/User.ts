@@ -3,6 +3,7 @@ import { UserDTOValidateRules, UserLoginValidateRules } from '../dto/user.rule';
 import { genJwtToken } from '../utils/authorized';
 
 export default class UserController extends Controller {
+  
   async register() {
     const { app, ctx } = this;
     

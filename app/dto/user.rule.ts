@@ -1,6 +1,6 @@
 
 export const UserDTOValidateRules = {
-  enterprise: { type: 'string', required: true },
+  enterpriseName: { type: 'string', required: true },
   user: {
     type: 'object',
     rule: {
