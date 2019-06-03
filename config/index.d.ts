@@ -1,6 +1,7 @@
 import { Context, PowerPartial, EggAppConfig } from 'egg';
 
 interface BizConfig {
+  version?: string;
   sourceUrl?: string;
     // auth,
   jwt?: {

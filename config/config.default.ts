@@ -2,12 +2,16 @@ import { EggAppInfo,Context } from 'egg';
 import * as pathToRegex from 'path-to-regexp';
 import { MeYupConfig } from '.';
 
+const packageConfig = require('../package');
+
+
 
 export default (appInfo: EggAppInfo): MeYupConfig  => ({
   
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
   keys: appInfo.name + '_1553332432157_7228',
+  version: packageConfig.version,
   security: {
     csrf: false,
   },
@@ -63,7 +67,8 @@ export default (appInfo: EggAppInfo): MeYupConfig  => ({
     exclude: [
       '/user/login',
       '/user/register',
-      '/welcome',
+      '/welcome'
+      // '/',
     ]
   }
 });
