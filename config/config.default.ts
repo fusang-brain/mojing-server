@@ -63,6 +63,7 @@ export default (appInfo: EggAppInfo): MeYupConfig  => ({
     exclude: [
       '/user/login',
       '/user/register',
+      '/welcome',
     ]
   }
 });

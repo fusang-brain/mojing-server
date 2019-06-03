@@ -4,6 +4,7 @@ export default (app: Application) => {
   const { controller, router } = app;
 
   router.get('/', controller.home.index);
+  router.get('/welcome', controller.home.index);
   router.resources('finance', '/finance', controller.finance);
   router.get('/finance/statistic', controller.finance.findStatistic);
   router.resources('finance_category', '/finance_category', controller.financeCategory);
