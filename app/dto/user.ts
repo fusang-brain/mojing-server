@@ -1,5 +1,5 @@
 export interface UserDTO {
-  enterprise?:string;
+  enterpriseName?:string;
   user: {
     email:string;
     password:string;

@@ -41,4 +41,6 @@ export default (app: Application) => {
   router.resources('Customer', '/customer', controller.customer);
   
   router.resources('Optometry', '/optometry', controller.optometry);
+
+  router.get('/release', controller.release.info);
 };

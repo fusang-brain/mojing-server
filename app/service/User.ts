@@ -27,11 +27,9 @@ export default class User extends Service {
 
     // create enterprie
     const createdEnterprise = new model.Enterprise({
-      name: userBody.enterprise,
-      slug: String2PinYin(userBody.enterprise||'-'),
+      name: userBody.enterpriseName,
+      slug: String2PinYin(userBody.enterpriseName||'-'),
     });
-
-    
 
     const hashedPassword = await hashPassword(userBody.user.password);
 

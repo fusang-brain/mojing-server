@@ -8,6 +8,7 @@ import ExportFinanceCategory from '../../../app/controller/FinanceCategory';
 import ExportOptometry from '../../../app/controller/Optometry';
 import ExportProduct from '../../../app/controller/Product';
 import ExportProvider from '../../../app/controller/Provider';
+import ExportRelease from '../../../app/controller/Release';
 import ExportStock from '../../../app/controller/Stock';
 import ExportUser from '../../../app/controller/User';
 import ExportHome from '../../../app/controller/home';
@@ -20,6 +21,7 @@ declare module 'egg' {
     optometry: ExportOptometry;
     product: ExportProduct;
     provider: ExportProvider;
+    release: ExportRelease;
     stock: ExportStock;
     user: ExportUser;
     home: ExportHome;
