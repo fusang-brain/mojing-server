@@ -34,23 +34,23 @@ export const CommonProductRules = {
     required: false,
   },
   frameHeight: {
-    type: 'number',
+    type: 'string',
     required: false,
   },
   frameWidth: {
-    type: 'number',
+    type: 'string',
     required: false,
   },
   noseBridgeWeight: {
-    type: 'number',
+    type: 'string',
     required: false,
   },
   frameLegLength: {
-    type: 'number',
+    type: 'string',
     required: false,
   },
   frameWeight: {
-    type: 'number',
+    type: 'string',
     required: false,
   },
   diopter: {
@@ -174,12 +174,12 @@ export interface IProduct extends BaseDocument {
   brand?:string; // 品牌
   typeSpecification?:string; // 型号
   colorNumber?:string; // 色号
-  frameHeight?:number; // 框架长
-  frameWidth?:number; // 框架宽
-  noseBridgeWeight?:number; // 鼻梁宽
-  frameLegLength?:number; // 镜腿长
-  frameWeight?:number; // 镜架重量
-  diopter?:number; // 屈光度
+  frameHeight?:string; // 框架长
+  frameWidth?:string; // 框架宽
+  noseBridgeWeight?:string; // 鼻梁宽
+  frameLegLength?:string; // 镜腿长
+  frameWeight?:string; // 镜架重量
+  diopter?:string; // 屈光度
 
   // 镜片相关
   sphere?:string; // 球镜
@@ -209,12 +209,12 @@ export default (app: Application) => {
     brand: Schema.Types.String,
     typeSpecification: Schema.Types.String,
     colorNumber: Schema.Types.String,
-    frameHeight: Schema.Types.Number,
-    frameWidth: Schema.Types.Number,
-    noseBridgeWeight: Schema.Types.Number,
-    frameLegLength: Schema.Types.Number,
-    frameWeight: Schema.Types.Number,
-    diopter: Schema.Types.Number,
+    frameHeight: Schema.Types.String,
+    frameWidth: Schema.Types.String,
+    noseBridgeWeight: Schema.Types.String,
+    frameLegLength: Schema.Types.String,
+    frameWeight: Schema.Types.String,
+    diopter: Schema.Types.String,
 
     sphere: Schema.Types.String,
     lenticularGrating: Schema.Types.String,
