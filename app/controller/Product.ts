@@ -87,9 +87,10 @@ export default class ProductController extends Controller {
   async findSimpleProductList() {
     const { ctx } = this;
     
-    const resp = await ctx.service.product.findSimpleProducts(ctx.request.query);
+    const { list = [], total } = await ctx.service.product.findSimpleProducts(ctx.request.query);
     ctx.body = {
-      list: resp.map(item => (
+      total,
+      list: list.map(item => (
         {
           _id: item._id,
           category: item.category,
@@ -98,6 +99,7 @@ export default class ProductController extends Controller {
           kind: item.kind,
         }
       )),
+
     };
     
   }
@@ -143,4 +145,17 @@ export default class ProductController extends Controller {
 
     this.ctx.body = list;
   }
+
+  @validateParams({
+    id: 'ObjectId',
+  })
+  async destroy() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { id } = ctx.params;
+    const res = await service.product.remove(id);
+
+    ctx.body = res;
+  }
+  
 }

@@ -16,6 +16,19 @@ export default class Finance extends Service {
     return await willCreatedFinance.save();
   }
 
+  async remove(id: ObjectID) {
+    const { ctx } = this;
+    const { model } = ctx;
+    
+    const res = await model.Finance.update({
+      _id: id,
+    }, {
+      deleted: true,
+    });
+
+    return res;
+  }
+
   async queryList(query: Query) {
     const { ctx } = this;
     const { model } = ctx;
@@ -46,7 +59,7 @@ export default class Finance extends Service {
     const { ctx } = this;
     const { model } = ctx;
     const resp = await model.Finance.aggregate([
-      {$match: { 'enterprise': Types.ObjectId(enterprise) }},
+      {$match: { 'enterprise': Types.ObjectId(enterprise), 'deleted': false }},
       {
         $group: {
           _id: {

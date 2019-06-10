@@ -144,9 +144,17 @@ export default class ProductService extends Service {
 
   async findSimpleProducts(query: Query) {
     const { model } = this.ctx;
-    const { enterprise } = query;
+    const { enterprise, skip = 0, count = 15 } = query;
     const condition: IDict = { enterprise, deleted: false };
-    return await model.Product.find(condition);
+    const list = await model.Product.find(condition).skip(+skip).limit(+count);
+    const total = await model.Product.count({
+      enterprise,
+      deleted: false 
+    })
+    return {
+      list,
+      total,
+    }
   }
 
   async findInfo(id: ObjectID) {
@@ -181,5 +189,16 @@ export default class ProductService extends Service {
     });
 
     return result;
+  }
+
+  async remove(id: string) {
+    const { model } = this.ctx;
+    const res = await model.Product.update({
+      _id: id,
+    }, {
+      deleted: true,
+    });
+
+    return res;
   }
 }

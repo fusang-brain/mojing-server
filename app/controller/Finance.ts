@@ -1,7 +1,7 @@
 
 import { Controller } from 'egg';
 import { FinanceValidationRule } from '../model/Finance';
-import { validateQuery, validateQueryWithPager } from '../common/query.model';
+import { validateQuery, validateQueryWithPager, validateParams } from '../common/query.model';
 import * as moment from 'moment';
 
 export default class FinanceController extends Controller {
@@ -34,6 +34,18 @@ export default class FinanceController extends Controller {
 
     ctx.body = finance;
     ctx.status = 201;
+  }
+
+  @validateParams({
+    id: 'ObjectId',
+  })
+  async destroy() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { id } = ctx.params;
+    const res = await service.finance.remove(id);
+
+    ctx.body = res;
   }
 
   @validateQuery({

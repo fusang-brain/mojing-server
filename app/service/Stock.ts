@@ -51,7 +51,7 @@ export default class StockService extends Service {
     const { model } = ctx;
 
     return await pagedResultBuild<IStockOrder>(model.StockOrder, query, (queries) => {
-      return queries.populate('checkerObj');
+      return queries.populate('checkerObj').sort([['inStockTime', -1], ['createdAt', -1]]);
     });
   }
 
@@ -61,7 +61,7 @@ export default class StockService extends Service {
     const { model } = ctx;
 
     return await pagedResultBuild<IOutStockOrder>(model.OutStockOrder, query, (queries) => {
-      return queries.populate('checkerObj');
+      return queries.populate('checkerObj').sort([['outStockTime', -1], ['createdAt', -1]]);;
     });
   }
 
