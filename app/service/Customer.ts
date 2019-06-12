@@ -14,6 +14,7 @@ export default class Customer extends Service {
     const { model } = this.ctx;
     const pagerParams = getPagerParams(query);
     const condition = {
+      enterprise: query.enterprise,
       deleted: false,
       ...pagerParams,
     } as any;
