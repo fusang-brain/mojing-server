@@ -69,7 +69,25 @@ export default class Customer extends Service {
 
     return {
       ...customer.toJSON(),
-      lastOptometryInfo: lastOptometry.toJSON(),
+      lastOptometryInfo: lastOptometry ? lastOptometry.toJSON() : {},
     }
+  }
+
+  async findCustomers(query: Query) {
+    const { model } = this.ctx;
+    const { search } = query;
+
+    const info = await model.Customer.find({
+      '$or': [
+        {
+          name: new RegExp(search, 'i'),
+        },
+        {
+          mobile: new RegExp(search, 'i'),
+        },
+      ]
+    }).skip(0).limit(200);
+
+    return info;
   }
 }

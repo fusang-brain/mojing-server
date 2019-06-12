@@ -201,4 +201,11 @@ export default class ProductService extends Service {
 
     return res;
   }
+
+  async createBatch(body: any) {
+    const { model } = this.ctx;
+    const res = await model.ProductionBatch.create(body);
+
+    return res;
+  }
 }

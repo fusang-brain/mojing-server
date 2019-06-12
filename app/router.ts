@@ -16,6 +16,7 @@ export default (app: Application) => {
   router.get('/product/stockList', controller.product.findProductStockList);
   router.get('/product/batches', controller.product.findBatchsByProductID);
   router.get('/product/simpleList', controller.product.findSimpleProductList);
+  router.post('/product/createBatch', controller.product.createBatch);
   router.resources('product', '/product', controller.product);
   
   router.get('/stock/findOrderItems', controller.stock.loadStockItemsByOrderID);
@@ -38,6 +39,7 @@ export default (app: Application) => {
 
   router.resources('Provider', '/provider', controller.provider);
 
+  router.get('/customer/findCustomers', controller.customer.getCustomerList);
   router.resources('Customer', '/customer', controller.customer);
   
   router.resources('Optometry', '/optometry', controller.optometry);

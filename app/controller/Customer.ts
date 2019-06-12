@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import { validateQueryWithPager, validateBody, validateParams } from '../common/query.model';
+import { validateQueryWithPager, validateBody, validateParams, validateQuery } from '../common/query.model';
 import { CreateCustomerRules, UpdateCustomerRules } from '../dto/customer.rule';
 
 export default class CustomerController extends Controller {
@@ -65,6 +65,22 @@ export default class CustomerController extends Controller {
 
     ctx.body = {
       details,
+    };
+  }
+
+  @validateQuery({
+    search: { type: 'string', required: false },
+  })
+  async getCustomerList() {
+    const { ctx } = this;
+    const { service } = ctx;
+
+    // const { search } = ctx.params;
+
+    const list = await service.customer.findCustomers(ctx.query);
+
+    this.ctx.body = {
+      list,
     };
   }
 }

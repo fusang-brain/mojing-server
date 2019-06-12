@@ -140,7 +140,7 @@ export default class ProductController extends Controller {
   })
   async findProductStockList() {
     const { service, request } = this.ctx;
-    console.log(request.query, '>>>>query');
+    // console.log(request.query, '>>>>query');
     const list = await service.product.findProductStockList(request.query);
 
     this.ctx.body = list;
@@ -157,5 +157,26 @@ export default class ProductController extends Controller {
 
     ctx.body = res;
   }
-  
+
+  @validateBody({
+    productID: 'string',
+    expirationDate: { type: 'string', required: true },
+    startDate: { type: 'string', required: true },
+    color: { type: 'string', required: false },
+    diameter: { type: 'string', required: false },
+    BOZR: { type: 'string', required: false },
+    diopter: { type: 'string', required: false },
+    batchNumber: { type: 'string', required: true },
+  })
+  async createBatch() {
+    const { ctx } = this;
+
+    const { service, request } = ctx;
+    // console.log('body', body);
+    const res = await service.product.createBatch(request.body);
+    ctx.status = 201;
+    ctx.body = res;
+    
+  }
+
 }
