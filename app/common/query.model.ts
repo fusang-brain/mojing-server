@@ -1,5 +1,5 @@
-import { DocumentQuery, Model, Document } from 'mongoose';
-import { Application, Context } from 'egg';
+import { DocumentQuery, Model, Document, Connection } from 'mongoose';
+import { Application, Context, MongooseSingleton } from 'egg';
 import { Condition } from './mongo.base';
 import * as lodash from 'lodash';
 
@@ -234,4 +234,15 @@ export function buildCondition<T extends Condition>(condition: T, softDelete = t
     ...condition,
     ...defaultCondition,
   }
+}
+
+export function getMainConnection(mongooseDB: Connection|MongooseSingleton): Connection {
+  let client: Connection;
+  if (mongooseDB instanceof Connection) {
+    client = mongooseDB;
+  } else {
+    client = mongooseDB.get('main');
+  }
+
+  return client;
 }

@@ -3,11 +3,11 @@ import { MeYupConfig } from '.';
 export default (): MeYupConfig => ({
   mongoose: {
     client: {
-      url: 'mongodb://localhost/MeYupShop',
+      url: 'mongodb://meyup.io/MeYupTest',
       options: {
         poolSize: 20,
-        // user: 'meyupsrv',
-        // pass: 'meyupsrv@mongoDB',
+        user: 'meyupsrv',
+        pass: 'meyupsrv@mongoDB',
       },
     },
   },
