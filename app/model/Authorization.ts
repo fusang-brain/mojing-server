@@ -10,6 +10,7 @@ export interface IAuthorization extends BaseDocument {
   provider_id:string; // provider unique id
   password?:string;
   user_id:ObjectID; // linked user
+  initialPassword?: string;
 }
 
 export default (app: Application) => {
@@ -20,6 +21,7 @@ export default (app: Application) => {
     provider_id: { type: Schema.Types.String, required: true },
     password: Schema.Types.String,
     user_id: { type: Schema.Types.ObjectId, required: true },
+    initialPassword: { type: Schema.Types.String, required: false },
   });
 
   AuthorizationSchema.plugin(defaultFieldsPlugin);

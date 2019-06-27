@@ -48,5 +48,7 @@ export default (app: Application) => {
 
   router.delete('/sale/del', controller.sale.del);
   router.resources('Sale', '/sale', controller.sale);
+
+  router.resources('Employee', '/employee', controller.employee);
   
 };

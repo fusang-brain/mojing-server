@@ -15,6 +15,9 @@ export default (options, app: Application) => {
       ...query,
       enterprise,
     }
+
+    // ctx.set('Enterprise', enterprise);
+    
     // console.log()
     await next();
   }

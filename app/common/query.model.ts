@@ -198,7 +198,7 @@ export async function pagedResultBuild<U extends Document>(mdl: Model<U>, query:
   // const { }
   const condition = lodash.omit(query, ['page', 'pageSize', 'order', 'sort']);
   
-  const total = await mdl.count(condition);
+  const total = await mdl.countDocuments(condition);
   let listQuery = mdl.find({
     ...condition,
     deleted: false,

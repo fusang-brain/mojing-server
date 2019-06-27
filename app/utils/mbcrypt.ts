@@ -12,3 +12,11 @@ export async function hashPassword(plainPassword: string = '') {
 export async function comparePassword(plainPassword: string = '', hashedPassword: string = '') {
   return bcrypt.compare(plainPassword, hashedPassword);
 }
+
+export function genValidateCode() {
+  return Math.random().toString().slice(-6);
+}
+
+export function genInitialPassword() {
+  return genValidateCode();
+}

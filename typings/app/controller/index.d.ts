@@ -3,6 +3,7 @@
 
 import 'egg';
 import ExportCustomer from '../../../app/controller/Customer';
+import ExportEmployee from '../../../app/controller/Employee';
 import ExportFinance from '../../../app/controller/Finance';
 import ExportFinanceCategory from '../../../app/controller/FinanceCategory';
 import ExportOptometry from '../../../app/controller/Optometry';
@@ -17,6 +18,7 @@ import ExportHome from '../../../app/controller/home';
 declare module 'egg' {
   interface IController {
     customer: ExportCustomer;
+    employee: ExportEmployee;
     finance: ExportFinance;
     financeCategory: ExportFinanceCategory;
     optometry: ExportOptometry;

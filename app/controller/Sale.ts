@@ -28,7 +28,6 @@ export default class SaleController extends Controller {
     }
   }
 
-
   async index() {
     const { ctx } = this;
     const { service } = ctx;
@@ -36,4 +35,6 @@ export default class SaleController extends Controller {
 
     ctx.body = resp;
   }
+
+  
 }

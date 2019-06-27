@@ -14,4 +14,5 @@ type ObjectID = any;
 
 interface IDict {
   [key: string]: any;
+  enterprise?: ObjectID;
 }

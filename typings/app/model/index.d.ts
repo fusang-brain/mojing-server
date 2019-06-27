@@ -5,6 +5,7 @@ import 'egg';
 import ExportAccess from '../../../app/model/Access';
 import ExportAuthorization from '../../../app/model/Authorization';
 import ExportCustomer from '../../../app/model/Customer';
+import ExportEmployee from '../../../app/model/Employee';
 import ExportEnterprise from '../../../app/model/Enterprise';
 import ExportFinance from '../../../app/model/Finance';
 import ExportFinanceCategory from '../../../app/model/FinanceCategory';
@@ -29,6 +30,7 @@ declare module 'egg' {
     Access: ReturnType<typeof ExportAccess>;
     Authorization: ReturnType<typeof ExportAuthorization>;
     Customer: ReturnType<typeof ExportCustomer>;
+    Employee: ReturnType<typeof ExportEmployee>;
     Enterprise: ReturnType<typeof ExportEnterprise>;
     Finance: ReturnType<typeof ExportFinance>;
     FinanceCategory: ReturnType<typeof ExportFinanceCategory>;

@@ -3,6 +3,7 @@
 
 import 'egg';
 import ExportCustomer from '../../../app/service/Customer';
+import ExportEmployee from '../../../app/service/Employee';
 import ExportFinance from '../../../app/service/Finance';
 import ExportFinanceCategory from '../../../app/service/FinanceCategory';
 import ExportOptometry from '../../../app/service/Optometry';
@@ -16,6 +17,7 @@ import ExportUser from '../../../app/service/User';
 declare module 'egg' {
   interface IService {
     customer: ExportCustomer;
+    employee: ExportEmployee;
     finance: ExportFinance;
     financeCategory: ExportFinanceCategory;
     optometry: ExportOptometry;

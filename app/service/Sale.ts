@@ -32,7 +32,7 @@ export default class SaleService extends Service {
 
       const foundProducts = await model.ProductStock.find({
         productID: { "$in": products },
-      });
+      }).session(session);
 
       // console.log(foundProducts, 'fp');//
 
@@ -53,9 +53,9 @@ export default class SaleService extends Service {
           '$inc': {
             total: -count,
           },
-        });
+        }).session(session);
       }
-      await createdSale.save();
+      await createdSale.save({ session });
       await session.commitTransaction();
       session.endSession();
 
@@ -80,7 +80,7 @@ export default class SaleService extends Service {
     try {
       const foundSaleOrder = await model.Sale.findOne({
         _id: id,
-      });
+      }).session(session);
       if (!foundSaleOrder) {
         this.ctx.throw(404, 'not found this sale order');
       }
@@ -93,13 +93,13 @@ export default class SaleService extends Service {
           '$inc': {
             total: +saleOrder.count,
           },
-        });
+        }).session(session);
       }
       await model.Sale.update({
         _id: id,
       }, {
         deleted: true,
-      });
+      }).session(session);
       await session.commitTransaction();
       session.endSession();
       return true;

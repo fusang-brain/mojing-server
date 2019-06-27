@@ -5,50 +5,65 @@ import { String2PinYin } from '../utils/tools';
 import { UserDTO, LoginDTO } from '../dto/user';
 import { hashPassword, comparePassword } from '../utils/mbcrypt';
 import { LOCAL_PROVIDER } from '../model/Authorization';
-import { buildCondition } from '../common/query.model';
+import { buildCondition, getMainConnection } from '../common/query.model';
 
 export default class User extends Service {
 
   async register(userBody: UserDTO): Promise<IUser> {
     const { ctx } = this;
-    const { model } = ctx;
+    const { model, app: { mongooseDB } } = ctx;
     const { user } = userBody;
 
-    // check user has registed
-    const foundUser = await model.User.findOne(buildCondition({
-      email:user.email,
-    }));
+    const client = getMainConnection(mongooseDB);
 
-    // is user has exists
-    if (foundUser) {
-      ctx.throw('exists user', 400);
-      return;
+    const session = await client.startSession();
+    
+    session.startTransaction();
+
+    try {
+      // check user has registed
+      const foundUser = await model.User.findOne(buildCondition({
+        email:user.email,
+      })).session(session);
+
+      // is user has exists
+      if (foundUser) {
+        ctx.throw('exists user', 400);
+        return;
+      }
+
+      // create enterprie
+      const createdEnterprise = new model.Enterprise({
+        name: userBody.enterpriseName,
+        slug: String2PinYin(userBody.enterpriseName||'-'),
+      });
+
+      const hashedPassword = await hashPassword(userBody.user.password);
+
+      const createdUser = new model.User({
+        email: userBody.user.email,
+        realname: userBody.user.realname,
+      });
+
+      const createdAuthorization = new model.Authorization({
+        provider: LOCAL_PROVIDER,
+        provider_id: createdUser._id,
+        password: hashedPassword,
+        user_id: createdUser._id,
+      });
+
+      createdUser.enterprises = [createdEnterprise._id];
+      await createdAuthorization.save({ session });
+      await createdEnterprise.save({ session });
+      const savedRes = await createdUser.save({ session });
+      await session.commitTransaction();
+      session.endSession();
+      return savedRes;
+    } catch (error) {
+      await session.abortTransaction();
+      session.endSession();
+      throw error;
     }
-
-    // create enterprie
-    const createdEnterprise = new model.Enterprise({
-      name: userBody.enterpriseName,
-      slug: String2PinYin(userBody.enterpriseName||'-'),
-    });
-
-    const hashedPassword = await hashPassword(userBody.user.password);
-
-    const createdUser = new model.User({
-      email: userBody.user.email,
-      realname: userBody.user.realname,
-    });
-
-    const createdAuthorization = new model.Authorization({
-      provider: LOCAL_PROVIDER,
-      provider_id: createdUser._id,
-      password: hashedPassword,
-      user_id: createdUser._id,
-    });
-
-    createdUser.enterprises = [createdEnterprise._id];
-    await createdAuthorization.save();
-    await createdEnterprise.save();
-    return await createdUser.save();
   }
 
   async login(loginBody: LoginDTO) {
