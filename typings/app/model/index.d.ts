@@ -3,9 +3,12 @@
 
 import 'egg';
 import ExportAccess from '../../../app/model/Access';
+import ExportAccessGroup from '../../../app/model/AccessGroup';
+import ExportAccessGroupRelate from '../../../app/model/AccessGroupRelate';
 import ExportAuthorization from '../../../app/model/Authorization';
 import ExportCustomer from '../../../app/model/Customer';
 import ExportEmployee from '../../../app/model/Employee';
+import ExportEmployeeAccess from '../../../app/model/EmployeeAccess';
 import ExportEnterprise from '../../../app/model/Enterprise';
 import ExportFinance from '../../../app/model/Finance';
 import ExportFinanceCategory from '../../../app/model/FinanceCategory';
@@ -18,19 +21,20 @@ import ExportProduct from '../../../app/model/Product';
 import ExportProductStock from '../../../app/model/ProductStock';
 import ExportProductionBatch from '../../../app/model/ProductionBatch';
 import ExportProvider from '../../../app/model/Provider';
-import ExportRole from '../../../app/model/Role';
 import ExportSale from '../../../app/model/Sale';
 import ExportStockOrder from '../../../app/model/StockOrder';
 import ExportStockOrderItem from '../../../app/model/StockOrderItem';
 import ExportUser from '../../../app/model/User';
-import ExportUserRole from '../../../app/model/UserRole';
 
 declare module 'egg' {
   interface IModel {
     Access: ReturnType<typeof ExportAccess>;
+    AccessGroup: ReturnType<typeof ExportAccessGroup>;
+    AccessGroupRelate: ReturnType<typeof ExportAccessGroupRelate>;
     Authorization: ReturnType<typeof ExportAuthorization>;
     Customer: ReturnType<typeof ExportCustomer>;
     Employee: ReturnType<typeof ExportEmployee>;
+    EmployeeAccess: ReturnType<typeof ExportEmployeeAccess>;
     Enterprise: ReturnType<typeof ExportEnterprise>;
     Finance: ReturnType<typeof ExportFinance>;
     FinanceCategory: ReturnType<typeof ExportFinanceCategory>;
@@ -43,11 +47,9 @@ declare module 'egg' {
     ProductStock: ReturnType<typeof ExportProductStock>;
     ProductionBatch: ReturnType<typeof ExportProductionBatch>;
     Provider: ReturnType<typeof ExportProvider>;
-    Role: ReturnType<typeof ExportRole>;
     Sale: ReturnType<typeof ExportSale>;
     StockOrder: ReturnType<typeof ExportStockOrder>;
     StockOrderItem: ReturnType<typeof ExportStockOrderItem>;
     User: ReturnType<typeof ExportUser>;
-    UserRole: ReturnType<typeof ExportUserRole>;
   }
 }

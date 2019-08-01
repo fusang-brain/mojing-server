@@ -21,10 +21,21 @@ export default (app: Application)  => {
     email: Schema.Types.String,
     phone: Schema.Types.String,
     enterprises: [{ type: Schema.Types.ObjectId, ref: 'Enterprise' }],
+  }, {
+    toJSON: {
+      virtuals: true,
+    },
   });
 
   UserSchema.plugin(defaultFieldsPlugin);
   UserSchema.plugin(withEnterprisePlugin);
+
+  // UserSchema.virtual('UserRole', {
+  //   ref: 'UserAccess',
+  //   localField: '_id',
+  //   foreignField: 'user',
+  //   justOne: true // set true for one-to-one relationship
+  // });
 
   return mongoose.model<IUser>('User', UserSchema);
 }

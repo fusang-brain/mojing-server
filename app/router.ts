@@ -50,5 +50,20 @@ export default (app: Application) => {
   router.resources('Sale', '/sale', controller.sale);
 
   router.resources('Employee', '/employee', controller.employee);
+  router.resources('AccessGroup', '/accessGroup', controller.accessGroup);
+  router.put('/accessGroup/add-access/:id', controller.accessGroup.addAccessToGroup);
+  router.get('/accessGroup/accesses/:id', controller.accessGroup.findGroupAccesses);
+
+  router.post('/access/', controller.access.createAccess);
+  router.get('/access/', controller.access.getAllAccess);
+  router.delete('/access/:id', controller.access.removeAccess);
+
+  router.get('/enterprise/:id', controller.enterprise.details);
+  router.get('/enterprise/', controller.enterprise.index);
+  router.put('/enterprise/:id', controller.enterprise.update);
+  router.delete('/enterprise/:id', controller.enterprise.remove);
+  router.get('/enterprise/by-user/:id', controller.enterprise.findListByUserID);
+
+  router.put('/sms/validateCode/:phoneNumber/k/:kind', controller.sms.sendValidateCode);
   
 };

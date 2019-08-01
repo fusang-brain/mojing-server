@@ -4,6 +4,7 @@ export default (options, app: Application) => {
   return async function loadEnterpriseHandler(ctx: Context, next: () => any): Promise<void> {
     
     const enterprise = ctx.request.header['meyupenterprise'];
+    
     const { body, query } = ctx.request;
 
     ctx.request.body = {

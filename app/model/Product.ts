@@ -4,8 +4,9 @@ import { Schema } from 'mongoose';
 import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugin';
 import { IProductionBatch } from './ProductionBatch';
 import { IEnterprise } from './Enterprise';
+import { RuleOptions } from '../common/rules';
 
-export const CommonProductRules = {
+export const CommonProductRules: RuleOptions = {
   kind:'string',
   enterprise: 'string',
   category:'string',
@@ -59,7 +60,7 @@ export const CommonProductRules = {
   },
 };
 
-export const EyeglassProductRules = {
+export const EyeglassProductRules: RuleOptions = {
   kind:'string',
   enterprise: 'string',
   // category:'string',
@@ -109,7 +110,7 @@ export const EyeglassProductRules = {
   },
 };
 
-export const ContactLensesRules = {
+export const ContactLensesRules: RuleOptions = {
   kind:'string',
   enterprise: 'string',
   category:'string',
@@ -132,7 +133,7 @@ export const ContactLensesRules = {
   productionBatch: {
     type: 'array',
     itemType: 'object',
-    rules: {
+    rule: {
       batchNumber: 'string',
       diopter: 'string',
       BOZR: 'string',
@@ -144,7 +145,7 @@ export const ContactLensesRules = {
   },
 }
 
-export const ServicesRules = {
+export const ServicesRules: RuleOptions = {
   kind:'string',
   enterprise: 'string',
   // registerCode:'string',

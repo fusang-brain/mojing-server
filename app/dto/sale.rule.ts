@@ -1,5 +1,6 @@
+import { RuleOptions } from '../common/rules';
 
-export const CreateSaleRules = {
+export const CreateSaleRules: RuleOptions = {
   customer: { type: 'ObjectId', required: true },
   amount: { type: 'number', required: true },
   saleDate: { type: 'string', required: true },
@@ -40,6 +41,6 @@ export const CreateSaleRules = {
   }
 }
 
-export const RemoveSaleRules = {
+export const RemoveSaleRules: RuleOptions = {
   id: { type: 'ObjectId', required: true },
 }

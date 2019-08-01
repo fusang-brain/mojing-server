@@ -5,12 +5,14 @@ import { IEmployee } from '../model/Employee';
 import { IAuthorization, LOCAL_PROVIDER } from '../model/Authorization';
 import { hashPassword, genInitialPassword } from '../utils/mbcrypt';
 import { IUser } from '../model/User';
+import { NotFoundError } from '../exception';
 
 export interface EmployeeBody extends IDict {
   realname?: string;
   email?: string;
   phone?: string;
   job?: string;
+  role?: string;
 }
 
 export default class Employee extends Service {
@@ -106,6 +108,7 @@ export default class Employee extends Service {
 
     if (query.search) {
       const searchReg = new RegExp(query.search, 'i')
+      
       const users = await model.User.find({
         '$or': [
           { 'realname': searchReg },
@@ -122,7 +125,7 @@ export default class Employee extends Service {
     }
 
     const listResults = await pagedResultBuild<IEmployee>(model.Employee, condition, (mdl) => {
-      return mdl.populate('user');
+      return mdl.populate('user').populate({ path: 'employeeRole', populate: { path: 'accessGroup' } });
     });
 
     return listResults;
@@ -165,6 +168,8 @@ export default class Employee extends Service {
   async update(id: string, body: EmployeeBody) {
     const { model, app: { mongooseDB } } = this.ctx;
 
+    const { role } = body;
+
     const client = await getMainConnection(mongooseDB);
 
     const session = await client.startSession();
@@ -176,7 +181,6 @@ export default class Employee extends Service {
       }).session(session);
 
       if (!foundEmployee) {
-        
         this.ctx.throw(404, 'not found this employee');
       }
 
@@ -184,12 +188,30 @@ export default class Employee extends Service {
       foundEmployee.job = body.job;
 
       await foundEmployee.save({ session });
+      const foundRole = await model.AccessGroup.findOne({ _id: role }).session(session);
 
+      if (!foundRole) {
+        throw new NotFoundError('Not found this role');
+      }
+
+      await model.EmployeeAccess.deleteMany({
+        employee: foundEmployee._id,
+      }).session(session);
+
+      await model.EmployeeAccess.create([{
+        employee: foundEmployee._id,
+        accessGroup: role,
+      }], {
+        session,
+      });
+      
       await session.commitTransaction();
       session.endSession();
     } catch(err) {
       await session.abortTransaction();
       session.endSession();
+      console.log(err);
+      throw err;
     }
   }
   

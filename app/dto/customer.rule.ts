@@ -1,4 +1,6 @@
-export const CreateCustomerRules = {
+import { RuleOptions } from '../common/rules';
+
+export const CreateCustomerRules: RuleOptions = {
   enterprise: { type: 'string', required: true },
   name: { type: 'string', required: true },
   mobile: { type: 'string', required: true },
@@ -22,7 +24,7 @@ export const CreateCustomerRules = {
   note: { type: 'string', required: false },
 }
 
-export const UpdateCustomerRules = {
+export const UpdateCustomerRules: RuleOptions = {
   enterprise: { type: 'string', required: true },
   name: { type: 'string', required: true },
   mobile: { type: 'string', required: true },

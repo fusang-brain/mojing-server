@@ -1,29 +1,35 @@
 
 import { Service } from 'egg';
 import { IUser } from '../model/User';
-import { String2PinYin } from '../utils/tools';
+// import { String2PinYin } from '../utils/tools';
 import { UserDTO, LoginDTO } from '../dto/user';
 import { hashPassword, comparePassword } from '../utils/mbcrypt';
 import { LOCAL_PROVIDER } from '../model/Authorization';
 import { buildCondition, getMainConnection } from '../common/query.model';
+import { ActionError } from '../exception';
 
 export default class User extends Service {
 
   async register(userBody: UserDTO): Promise<IUser> {
     const { ctx } = this;
     const { model, app: { mongooseDB } } = ctx;
-    const { user } = userBody;
+    const { user, validateCode } = userBody;
 
     const client = getMainConnection(mongooseDB);
 
     const session = await client.startSession();
-    
+
+    if (! (await ctx.smsUtils.isValid(user.mobile, validateCode, 'register'))) {
+      throw new ActionError('验证码错误');
+    }
+
     session.startTransaction();
 
     try {
+      
       // check user has registed
       const foundUser = await model.User.findOne(buildCondition({
-        email:user.email,
+        phone: user.mobile,
       })).session(session);
 
       // is user has exists
@@ -33,15 +39,16 @@ export default class User extends Service {
       }
 
       // create enterprie
-      const createdEnterprise = new model.Enterprise({
-        name: userBody.enterpriseName,
-        slug: String2PinYin(userBody.enterpriseName||'-'),
-      });
+      // const createdEnterprise = new model.Enterprise({
+      //   name: userBody.enterpriseName,
+      //   slug: String2PinYin(userBody.enterpriseName||'-'),
+      // });
 
       const hashedPassword = await hashPassword(userBody.user.password);
 
       const createdUser = new model.User({
         email: userBody.user.email,
+        phone: userBody.user.mobile,
         realname: userBody.user.realname,
       });
 
@@ -52,9 +59,9 @@ export default class User extends Service {
         user_id: createdUser._id,
       });
 
-      createdUser.enterprises = [createdEnterprise._id];
+      // createdUser.enterprises = [createdEnterprise._id];
       await createdAuthorization.save({ session });
-      await createdEnterprise.save({ session });
+      // await createdEnterprise.save({ session });
       const savedRes = await createdUser.save({ session });
       await session.commitTransaction();
       session.endSession();
@@ -71,7 +78,7 @@ export default class User extends Service {
     const { model } = ctx;
 
     const foundUser = await model.User.findOne(buildCondition({
-      email: loginBody.username,
+      phone: loginBody.username,
     }));
 
     if (!foundUser) {

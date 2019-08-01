@@ -2,8 +2,11 @@
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
+import ExportAccess from '../../../app/service/Access';
+import ExportAccessGroup from '../../../app/service/AccessGroup';
 import ExportCustomer from '../../../app/service/Customer';
 import ExportEmployee from '../../../app/service/Employee';
+import ExportEnterprise from '../../../app/service/Enterprise';
 import ExportFinance from '../../../app/service/Finance';
 import ExportFinanceCategory from '../../../app/service/FinanceCategory';
 import ExportOptometry from '../../../app/service/Optometry';
@@ -16,8 +19,11 @@ import ExportUser from '../../../app/service/User';
 
 declare module 'egg' {
   interface IService {
+    access: ExportAccess;
+    accessGroup: ExportAccessGroup;
     customer: ExportCustomer;
     employee: ExportEmployee;
+    enterprise: ExportEnterprise;
     finance: ExportFinance;
     financeCategory: ExportFinanceCategory;
     optometry: ExportOptometry;

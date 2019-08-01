@@ -29,6 +29,20 @@ export default class ProductController extends Controller {
     ctx.status = 201;
   }
 
+  @validateParams({
+    id: 'ObjectId',
+  })
+  async update() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+
+    const { body } = ctx.request;
+
+    await ctx.service.product.update(id, body);
+
+    ctx.body = 'Updated';
+  }
+
   @validateBody(CommonProductRules)
   async createCommon() {
     const { ctx } = this;

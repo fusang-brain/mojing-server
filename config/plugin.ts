@@ -25,6 +25,16 @@ const plugin: EggPlugin = {
     enable: true,
     package: "egg-jwt"
   },
+
+  session: {
+    enable: true,
+    package: 'egg-session',
+  },
+
+  redis: {
+    enable: true,
+    package: 'egg-redis',
+  },
 };
 
 export default plugin;

@@ -4,6 +4,7 @@ import * as lodash from 'lodash';
 import { pagedResultBuild } from '../common/query.model';
 import { IProduct } from '../model/Product';
 import { IProductStock } from '../model/ProductStock';
+import { NotFoundError } from '../exception';
 
 export interface ICommonProduct {
   kind:string;
@@ -207,5 +208,18 @@ export default class ProductService extends Service {
     const res = await model.ProductionBatch.create(body);
 
     return res;
+  }
+
+  async update(id: string, data: any) {
+    const { ctx } = this;
+    const foundOne = await ctx.model.Product.findById(id);
+
+    if (!foundOne) {
+      throw new NotFoundError('Not found this product');
+    }
+
+    await ctx.model.Product.update({
+      _id: id,
+    }, data);
   }
 }

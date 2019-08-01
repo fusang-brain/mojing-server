@@ -4,7 +4,7 @@ import { CreateCustomerRules, UpdateCustomerRules } from '../dto/customer.rule';
 
 export default class CustomerController extends Controller {
   @validateQueryWithPager({
-    enterprise: 'ObjectId',
+    enterprise: { type: 'ObjectId' },
   })
   async index() {
     const { ctx } = this;

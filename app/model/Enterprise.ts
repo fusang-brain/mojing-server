@@ -4,15 +4,15 @@ import { Schema } from 'mongoose';
 import { defaultFieldsPlugin } from '../common/mongo.plugin';
 
 export interface IEnterprise extends SimpleDocument {
-  name:string;
-  slug:string;
-  logo?:string;
-  address?:string;
-  linkman?:string;
-  contactNumber?:string;
-  businessLicense?:string;
-  medicalEquipmentSalesLicense?:string;
-  description?:string;
+  name:string; // 企业名称
+  slug:string; 
+  logo?:string; // 企业logo
+  address?:string; // 企业地址
+  linkman?:string; // 企业联系人
+  contactNumber?:string; // 联系电话
+  businessLicense?:string; // 企业营业执照
+  medicalEquipmentSalesLicense?:string; // 医疗许可证书
+  description?:string; // 描述
 }
 
 export default (app: Application) => {

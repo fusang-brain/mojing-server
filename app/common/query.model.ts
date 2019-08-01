@@ -2,6 +2,8 @@ import { DocumentQuery, Model, Document, Connection } from 'mongoose';
 import { Application, Context, MongooseSingleton } from 'egg';
 import { Condition } from './mongo.base';
 import * as lodash from 'lodash';
+import { RuleOptions } from './rules';
+
 
 /**
  * 查询字符串信息校验
@@ -36,7 +38,7 @@ export function defaultQuery(): Query {
   };
 }
 
-export function validateQuery(rules?: Object) {
+export function validateQuery(rules?: RuleOptions) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method: () => Promise<void> = descriptor.value;
     async function doValidate() {
@@ -66,7 +68,7 @@ export function validateQuery(rules?: Object) {
   }
 }
 
-export function validateParams(rules?: Object) {
+export function validateParams(rules?: RuleOptions) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method: () => Promise<void> = descriptor.value;
     async function doValidate() {
@@ -96,7 +98,7 @@ export function validateParams(rules?: Object) {
   }
 }
 
-export function validateBody(rules?: Object) {
+export function validateBody(rules?: RuleOptions) {
   
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method: () => Promise<void> = descriptor.value;
@@ -126,7 +128,7 @@ export function validateBody(rules?: Object) {
   }
 }
 
-export function validateQueryWithPager(rules?: Object, throwError?:boolean) {
+export function validateQueryWithPager(rules?: RuleOptions, throwError?:boolean) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method: () => Promise<void> = descriptor.value;
     async function doValidate() {

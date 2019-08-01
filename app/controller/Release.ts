@@ -57,10 +57,7 @@ class ReleaseController extends Controller {
     }
     
     const path = `http://release.meyup.io/store/${url}`;
-    // ctx.body = {
-    //   path,
-    //   // docBody,
-    // };
+    
     ctx.redirect(path);
   }
 }

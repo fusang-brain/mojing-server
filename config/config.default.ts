@@ -69,7 +69,20 @@ export default (appInfo: EggAppInfo): MeYupConfig  => ({
       '/user/register',
       '/welcome',
       '/release',
+      '/sms/validateCode/(.*)',
       // '/',
     ]
+  },
+  alicloud: {
+    accessID: 'VDNx1r7aThldJca3',
+    accessSecret: 'qQYHPEDuBBZDKSrfGVUqzryOY8TCMs',
+  },
+  redis: {
+    client: {
+      port: 6379,
+      host: 'localhost',
+      db: 0,
+      password: 'auth',
+    },
   }
 });

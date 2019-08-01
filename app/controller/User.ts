@@ -16,14 +16,18 @@ export default class UserController extends Controller {
 
     const createUser = await ctx.service.user.register(ctx.request.body);
 
-    ctx.body = createUser;
+    ctx.body = {
+      authority: 'admin',
+      token: genJwtToken(createUser._id, app.config.jwt.secret),
+      authorization: createUser,
+    };
     ctx.status = 201;
   }
 
   async login() {
     const { app, ctx } = this;
     const invalid = app.validator.validate(UserLoginValidateRules, ctx.request.body);
-
+    
     if (invalid) {
       ctx.throw(422, { errors: invalid });
       return;

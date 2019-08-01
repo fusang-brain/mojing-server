@@ -12,11 +12,12 @@ interface RuleItem {
   trim?: boolean;
   compare?: string;
   values?: Array<any>;
-  rule?: RuleItem;
+  rule?: RuleOptions;
+  // rule?: RuleOptions;
   itemType?: TypeOptions;
   // widelyUndefined?: boolean;
 }
 
 export interface RuleOptions {
-  [key: string]: RuleItem;
+  [key: string]: RuleItem|TypeOptions;
 }

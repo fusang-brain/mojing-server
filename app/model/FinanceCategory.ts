@@ -2,6 +2,7 @@ import { Application } from 'egg';
 import { Schema } from 'mongoose';
 import { BaseDocument } from '../common/mongo.base';
 import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugin';
+import { RuleOptions } from '../common/rules';
 
 
 export interface IFinanceCategory extends BaseDocument {
@@ -9,7 +10,7 @@ export interface IFinanceCategory extends BaseDocument {
   name?:string;
 }
 
-export const FinanceCategoryValidationRule = {
+export const FinanceCategoryValidationRule: RuleOptions = {
   slug: 'string',
   name: {
     type: 'string',
