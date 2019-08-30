@@ -8,10 +8,6 @@ import { request, summary, path, queryWithPager, query } from '@fsba/egg-wrapper
 
 export default class FinanceController extends Controller {
 
-  // @validateQueryWithPager({
-  //   enterprise: 'string',
-  //   date: 'string',
-  // })
   @request('get', '/finance')
   @summary('获取财务列表')
   @queryWithPager({

@@ -1,12 +1,18 @@
 
 import { Controller } from 'egg';
-import { validateBody, validateQueryWithPager, validateQuery, validateParams } from '../common/query.model';
+// import { validateBody, validateQueryWithPager, validateQuery, validateParams } from '../common/query.model';
 import { CommonProductRules, EyeglassProductRules, ContactLensesRules, ServicesRules } from '../model/Product';
+import { body, request, path, queryWithPager, summary, query, tag, validate } from '@fsba/egg-wrapper';
+
+const Tag = tag('商品模块')
 
 export default class ProductController extends Controller {
 
-  @validateBody({
-    kind: 'string',
+  @request('post', '/product')
+  @summary('新增商品')
+  @Tag
+  @body({
+    kind: { type: 'string', description: '商品类型' }
   })
   async create() {
     const { ctx } = this;
@@ -20,17 +26,22 @@ export default class ProductController extends Controller {
         await this.createEyeglass();
         break;
       case 2:
-         await this.createContactLenses();
+        await this.createContactLenses();
         break;
       case 3:
         await this.createServices();
+        break;
+      default:
         break;
     }
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('put', '/product/{id}')
+  @summary('修改商品信息')
+  @Tag
+  @path({
+    id: { type: 'ObjectId', required: true, description: '商品ID'}
   })
   async update() {
     const { ctx } = this;
@@ -43,7 +54,8 @@ export default class ProductController extends Controller {
     ctx.body = 'Updated';
   }
 
-  @validateBody(CommonProductRules)
+  // @validateBody(CommonProductRules)
+  @validate('body', CommonProductRules)
   async createCommon() {
     const { ctx } = this;
     const { service } = ctx;
@@ -53,7 +65,7 @@ export default class ProductController extends Controller {
     ctx.status = 201;
   }
 
-  @validateBody(EyeglassProductRules)
+  @validate('body', EyeglassProductRules)
   async createEyeglass() {
     const { ctx } = this;
     const { service } = ctx;
@@ -63,7 +75,7 @@ export default class ProductController extends Controller {
     ctx.status = 201;
   }
 
-  @validateBody(ContactLensesRules)
+  @validate('body', ContactLensesRules)
   async createContactLenses() {
     const { ctx } = this;
     const { service } = ctx;
@@ -74,7 +86,8 @@ export default class ProductController extends Controller {
     ctx.status = 201;
   }
 
-  @validateBody(ServicesRules)
+  // @validateBody(ServicesRules)
+  @validate('body', ServicesRules)
   async createServices() {
     const { ctx } = this;
     const { service } = ctx;
@@ -85,22 +98,25 @@ export default class ProductController extends Controller {
     ctx.status = 201;
   }
 
-  @validateQueryWithPager({
-    enterprise: 'string',
-  })
+  @request('get', '/product')
+  @queryWithPager()
+  @Tag
+  @summary('获取商品列表')
   async index() {
     const { ctx } = this;
+
+    ctx.request.query.enterprise = ctx.enterprise;
     const resp = await ctx.service.product.findList(ctx.request.query);
 
     ctx.body = resp;
   }
 
-  @validateQuery({
-    enterprise: 'ObjectId',
-  })
+  @request('get', '/product/simpleList')
+  @Tag
+  @summary('获取简单商品列表')
   async findSimpleProductList() {
     const { ctx } = this;
-    
+    ctx.request.query.enterprise = ctx.enterprise;
     const { list = [], total } = await ctx.service.product.findSimpleProducts(ctx.request.query);
     ctx.body = {
       total,
@@ -115,11 +131,18 @@ export default class ProductController extends Controller {
       )),
 
     };
-    
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  
+  @request('get', '/product/{id}')
+  @summary('获取商品详情')
+  @Tag
+  @path({
+    id: {
+      type: 'ObjectId',
+      required: true,
+      description: '商品ID',
+    }
   })
   async show() {
     const { ctx } = this;
@@ -133,7 +156,11 @@ export default class ProductController extends Controller {
     }
   }
 
-  @validateQuery({
+ 
+  @request('get', '/product/batches')
+  @summary('获取商品批次')
+  @Tag
+  @query({
     id: 'ObjectId',
     search: { type: 'string', required: false }
   })
@@ -148,10 +175,13 @@ export default class ProductController extends Controller {
     
   }
 
-  @validateQueryWithPager({
+  @request('get', '/product/stockList')
+  @Tag
+  @queryWithPager({
     enterprise: 'string',
     search: { type: 'string', required: false },
   })
+  @summary('获取商品库存列表')
   async findProductStockList() {
     const { service, request } = this.ctx;
     // console.log(request.query, '>>>>query');
@@ -160,9 +190,16 @@ export default class ProductController extends Controller {
     this.ctx.body = list;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('delete', '/product/{id}')
+  @Tag
+  @path({
+    id: {
+      type: 'ObjectId',
+      required: true,
+      description: '商品ID',
+    }
   })
+  @summary('删除商品')
   async destroy() {
     const { ctx } = this;
     const { service } = ctx;
@@ -172,7 +209,17 @@ export default class ProductController extends Controller {
     ctx.body = res;
   }
 
-  @validateBody({
+  // @validateBody({
+  //   productID: 'string',
+  //   expirationDate: { type: 'string', required: true },
+  //   startDate: { type: 'string', required: true },
+  //   color: { type: 'string', required: false },
+  //   diameter: { type: 'string', required: false },
+  //   BOZR: { type: 'string', required: false },
+  //   diopter: { type: 'string', required: false },
+  //   batchNumber: { type: 'string', required: true },
+  // })
+  @validate('body', {
     productID: 'string',
     expirationDate: { type: 'string', required: true },
     startDate: { type: 'string', required: true },

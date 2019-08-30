@@ -1,9 +1,15 @@
 import { Controller } from 'egg';
 import { UserDTOValidateRules, UserLoginValidateRules } from '../dto/user.rule';
 import { genJwtToken } from '../utils/authorized';
+import { request, summary, body, tag } from '@fsba/egg-wrapper';
+
+const Tag = tag('用户模块');
 
 export default class UserController extends Controller {
   
+  @request('post', '/user/register')
+  @summary('用户注册')
+  @Tag
   async register() {
     const { app, ctx } = this;
     
@@ -24,6 +30,21 @@ export default class UserController extends Controller {
     ctx.status = 201;
   }
 
+  @request('post', '/user/login')
+  @summary('用户登录')
+  @Tag
+  @body({
+    username: {
+      type: 'string',
+      required: true,
+      description: '用户名/手机号'
+    },
+    password: {
+      type: 'string',
+      required: true,
+      description: '密码'
+    }
+  })
   async login() {
     const { app, ctx } = this;
     const invalid = app.validator.validate(UserLoginValidateRules, ctx.request.body);
@@ -49,15 +70,20 @@ export default class UserController extends Controller {
     ctx.status = 201;
   }
 
+  @request('get', '/user/operators')
+  @Tag
+  @summary('获取操作人列表')
   async operators() {
     const { ctx } = this;
-    const { query } = ctx;
-
-    const operators = await ctx.service.user.findOperators(query.enterprise);
+    
+    const operators = await ctx.service.user.findOperators(ctx.enterprise);
 
     ctx.body = operators;
   }
 
+  @request('get', '/user/info')
+  @Tag
+  @summary('获取当前登录用户的用户详情')
   async info() {
     const { ctx } = this;
     const { user } = ctx.state;
