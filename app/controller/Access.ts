@@ -2,6 +2,7 @@ import { Controller } from 'egg';
 import { request, path, summary, tag } from '@fsba/egg-wrapper';
 const Tag = tag('权限模块');
 export default class AccessController extends Controller {
+
   @request('post', '/access/')
   @summary('创建权限')
   @Tag
@@ -14,6 +15,7 @@ export default class AccessController extends Controller {
       access,
     };
   }
+
   @request('delete', '/access/{id}')
   @Tag
   @path({
@@ -30,7 +32,7 @@ export default class AccessController extends Controller {
 
     await service.access.removeAccess(ctx.params.id);
 
-    ctx.body = "Deleted";
+    ctx.body = 'Deleted';
   }
 
   @request('get', '/access/')
