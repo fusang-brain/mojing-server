@@ -26,7 +26,7 @@ export default (app: Application) => {
   // router.get('/product/simpleList', controller.product.findSimpleProductList);
   // router.post('/product/createBatch', controller.product.createBatch);
   // router.resources('product', '/product', controller.product);
-  
+  // 从这里开始改， resources 的不用改
   // router.get('/stock/findOrderItems', controller.stock.loadStockItemsByOrderID);
   // router.get('/stock/findOutStockOrderItems', controller.stock.loadOutStockItemsByOrderID)
   // router.get('/stock/findOrders', controller.stock.findOrders);
