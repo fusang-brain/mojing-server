@@ -2,7 +2,7 @@ import { Controller } from 'egg';
 import yaml from 'js-yaml';
 // import * as fs from 'fs';
 import req from 'request';
-
+import { request } from '@fsba/egg-wrapper';
 function readRemoteYaml(url: string): Promise<string> {
   return new Promise((resolve, reject) => {
     try {
@@ -23,6 +23,7 @@ function readRemoteYaml(url: string): Promise<string> {
 } 
 
 class ReleaseController extends Controller {
+  @request('get', '/release')
   async info() {
     const { ctx } = this;
     // ctx.is()

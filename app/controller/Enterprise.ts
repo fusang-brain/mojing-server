@@ -1,6 +1,11 @@
 import { Controller } from 'egg';
-
+import { body, request, path, queryWithPager, summary, query, tag, validate } from '@fsba/egg-wrapper';
+const Tag = tag('企业模块');
 export default class Enterprise extends Controller {
+  
+  @request('get', '/enterprise')
+  @summary('首页')
+  @Tag
   async index() {
     const { ctx } = this;
     const list = await ctx.service.enterprise.findList(ctx.query);
@@ -9,7 +14,12 @@ export default class Enterprise extends Controller {
       list,
     };
   }
-
+  @request('get', '/enterprise/by-user/{id}')
+  @summary('查询通过用户ID')
+  @Tag
+  @path({
+    id: { type: 'ObjectId', required: true, description: '用户ID'}
+  })
   async findListByUserID() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -19,7 +29,12 @@ export default class Enterprise extends Controller {
       list,
     };
   }
-
+  @request('put', '/enterprise/{id}')
+  @summary('修改企业信息')
+  @Tag
+  @path({
+    id: { type: 'ObjectId', required: true, description: '企业ID'}
+  })
   async update() {
     const { ctx } = this;
     // const {  } = ctx.body;
@@ -30,7 +45,12 @@ export default class Enterprise extends Controller {
       enterprise,
     };
   }
-
+  @request('get', '/enterprise/{id}')
+  @summary('获取详细信息')
+  @Tag
+  @path({	
+    id: { type: 'ObjectId', required: false }
+  })
   async details() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -41,7 +61,16 @@ export default class Enterprise extends Controller {
       details,
     };
   }
-
+  @request('delete', '/enterprise/{id}')
+  @Tag
+  @path({
+    id: {
+      type: 'ObjectId',
+      required: true,
+      description: '企业ID',
+    }
+  })
+  @summary('删除企业')
   async remove() {
     const { ctx } = this;
     const { id } = ctx.params;
@@ -54,6 +83,9 @@ export default class Enterprise extends Controller {
   /**
    * 创建企业
    */
+  @request('post', '/enterprise')
+  @summary('创建企业')
+  @Tag
   async simpleCreate() {
     const { ctx } = this;
     const { license, payKind,  name, description, years } = ctx.request.body;

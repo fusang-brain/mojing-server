@@ -1,6 +1,7 @@
 import { Controller } from 'egg';
 import { validateParams, validateBody, validateQueryWithPager } from '../common/query.model';
-
+import { request, path, summary, tag } from '@fsba/egg-wrapper';
+const Tag = tag('权限模块');
 export default class AccessGroupController extends Controller {
 
 
@@ -62,11 +63,17 @@ export default class AccessGroupController extends Controller {
     ctx.body = 'deleted';
   }
 
-  @validateParams({
-    id: {
-      type: 'ObjectId',
-      required: true,
-    }
+  // @validateParams({
+  //   id: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   }
+  // })
+  @request('put', '/accessGroup/add-access/{id}')
+  @summary('添加对组的访问权限')
+  @Tag
+  @path({
+    id: { type: 'ObjectId', required: true}
   })
   async addAccessToGroup() {
     const { ctx } = this;
@@ -79,7 +86,16 @@ export default class AccessGroupController extends Controller {
     ctx.body = "Updated";
   }
 
-  @validateParams({
+  // @validateParams({
+  //   id: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   }
+  // })
+  @request('get', '/accessGroup/accesses/{id}')
+  @summary('查询组权限')
+  @Tag
+  @path({	
     id: {
       type: 'ObjectId',
       required: true,

@@ -27,11 +27,13 @@ export default (app: Application) => {
   // router.post('/product/createBatch', controller.product.createBatch);
   // router.resources('product', '/product', controller.product);
   // 从这里开始改， resources 的不用改
+
   // router.get('/stock/findOrderItems', controller.stock.loadStockItemsByOrderID);
   // router.get('/stock/findOutStockOrderItems', controller.stock.loadOutStockItemsByOrderID)
   // router.get('/stock/findOrders', controller.stock.findOrders);
   // router.get('/stock/findOutStockOrders', controller.stock.findOutStockOrders);
   // router.resources('stock', '/stock', controller.stock);
+  
   // router.post('/stock/createOrder', controller.stock.createStockOrder);
   // router.post('/stock/createOutStockOrder', controller.stock.createOutStockOrder);
   // router.post('/stock/setStockItems', controller.stock.setStockItems);

@@ -1,11 +1,26 @@
 
 import { Controller } from 'egg';
-import { validateBody, validateQueryWithPager, validateQuery } from '../common/query.model';
+import { validateBody } from '../common/query.model';
+import { request,summary, query, tag,queryWithPager,body } from '@fsba/egg-wrapper';
 
+const Tag = tag('库存模块')
 
 export default class StockController extends Controller {
 
-  @validateBody({
+  // @validateBody({
+  //   orderNO: 'string',
+  //   title: { type: 'string', required: false },
+  //   inStockTime: { type: 'dateTime', required: false },
+  //   provider: { type: 'string', required: true },
+  //   checker: { type: 'ObjectId', required: true },
+  //   stock: { type: 'string', required: true },
+  //   note: { type: 'string', required: false },
+  //   enterprise: 'string',
+  // })
+  @request('post', '/stock/createOrder')
+  @summary('创建库存订单')
+  @Tag
+  @body({
     orderNO: 'string',
     title: { type: 'string', required: false },
     inStockTime: { type: 'dateTime', required: false },
@@ -27,7 +42,20 @@ export default class StockController extends Controller {
     };
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderNO: 'string',
+  //   title: { type: 'string', required: false },
+  //   outStockTime: { type: 'dateTime', required: false },
+  //   customer: { type: 'string', required: true },
+  //   checker: { type: 'ObjectId', required: true },
+  //   stock: { type: 'string', required: true },
+  //   note: { type: 'string', required: false },
+  //   enterprise: 'string',
+  // })
+  @request('post', '/stock/createOutStockOrder')
+  @summary('创建出库订单')
+  @Tag
+  @body({
     orderNO: 'string',
     title: { type: 'string', required: false },
     outStockTime: { type: 'dateTime', required: false },
@@ -49,8 +77,13 @@ export default class StockController extends Controller {
     };
   }
 
-  @validateQueryWithPager({
-    enterprise: 'ObjectId',
+  // @validateQueryWithPager({
+  //   enterprise: 'ObjectId',
+  // })
+  @request('get', '/stock/findOrders')
+  @Tag
+  @queryWithPager({
+    enterprise: 'ObjectId'
   })
   async findOrders() {
     const { ctx } = this;
@@ -59,8 +92,13 @@ export default class StockController extends Controller {
     ctx.body = resp;
   }
 
-  @validateQueryWithPager({
-    enterprise: 'ObjectId',
+  // @validateQueryWithPager({
+  //   enterprise: 'ObjectId',
+  // })
+  @request('get', '/stock/findOutStockOrders')
+  @Tag
+  @queryWithPager({
+    enterprise: 'ObjectId'
   })
   async findOutStockOrders() {
     const { ctx } = this;
@@ -69,7 +107,21 @@ export default class StockController extends Controller {
     ctx.body = resp;
   }
 
-  @validateBody({
+  // @validateBody({
+  //   _id: 'string',
+  //   orderNO: 'string',
+  //   title: { type: 'string', required: false },
+  //   inStockTime: { type: 'dateTime', required: false },
+  //   provider: { type: 'string', required: true },
+  //   checker: { type: 'ObjectId', required: true },
+  //   stock: { type: 'string', required: true },
+  //   note: { type: 'string', required: false },
+  //   enterprise: 'string',
+  // })
+  @request('post', '/stock/updateOrder')
+  @summary('修改库存项目')
+  @Tag
+  @body({
     _id: 'string',
     orderNO: 'string',
     title: { type: 'string', required: false },
@@ -92,7 +144,21 @@ export default class StockController extends Controller {
     };
   }
 
-  @validateBody({
+  // @validateBody({
+  //   _id: 'string',
+  //   orderNO: 'string',
+  //   title: { type: 'string', required: false },
+  //   outStockTime: { type: 'dateTime', required: false },
+  //   customer: { type: 'string', required: true },
+  //   checker: { type: 'ObjectId', required: true },
+  //   stock: { type: 'string', required: true },
+  //   note: { type: 'string', required: false },
+  //   enterprise: 'string',
+  // })
+  @request('post', '/stock/updateOutStockOrder')
+  @summary('修改出库项目')
+  @Tag
+  @body({
     _id: 'string',
     orderNO: 'string',
     title: { type: 'string', required: false },
@@ -115,7 +181,28 @@ export default class StockController extends Controller {
     };
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  //   items: { 
+  //     type: 'array',
+  //     itemType: 'object',
+  //     rule: {
+  //       orderID: 'ObjectId',
+  //       productID: 'ObjectId',
+  //       productBatchID: {
+  //         type: 'ObjectId',
+  //         required: false,
+  //       },
+  //     },
+  //   }
+  // })
+  @request('post', '/stock/setStockItems')
+  @summary('设置库存项目')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
@@ -143,7 +230,28 @@ export default class StockController extends Controller {
     ctx.body = createdItems;
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  //   items: { 
+  //     type: 'array',
+  //     itemType: 'object',
+  //     rule: {
+  //       orderID: 'ObjectId',
+  //       productID: 'ObjectId',
+  //       productBatchID: {
+  //         type: 'ObjectId',
+  //         required: false,
+  //       },
+  //     },
+  //   }
+  // })
+  @request('post', '/stock/setOutStockItems')
+  @summary('设置出库项目')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
@@ -171,11 +279,17 @@ export default class StockController extends Controller {
     ctx.body = createdItems;
   }
 
-  @validateQuery({
-    orderID: {
-      type: 'ObjectId',
-      required: false,
-    },
+  // @validateQuery({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: false,
+  //   },
+  // })
+  @request('get', '/stock/findOrderItems')
+  @summary('查询订单项')
+  @Tag
+  @query({
+    orderID: { type: 'ObjectId', required: false }
   })
   async loadStockItemsByOrderID() {
     const { ctx } = this;
@@ -189,11 +303,17 @@ export default class StockController extends Controller {
     }));
   }
 
-  @validateQuery({
-    orderID: {
-      type: 'ObjectId',
-      required: false,
-    },
+  // @validateQuery({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: false,
+  //   },
+  // })
+  @request('get', '/stock/findOutStockOrderItems')
+  @summary('查询出库订单项')
+  @Tag
+  @query({
+    orderID: { type: 'ObjectId', required: false }
   })
   async loadOutStockItemsByOrderID() {
     const { ctx } = this;
@@ -207,7 +327,24 @@ export default class StockController extends Controller {
     }));
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  //   itemID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  //   checkQualifiedCount: {
+  //     type: 'number',
+  //     required: true,
+  //   },
+  // })
+  @request('post', '/stock/checkOneOrderItem')
+  @summary('验收一个订单项')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
@@ -229,7 +366,24 @@ export default class StockController extends Controller {
     ctx.body = ctx.request.body;
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  //   itemID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  //   checkQualifiedCount: {
+  //     type: 'number',
+  //     required: true,
+  //   },
+  // })
+  @request('post', '/stock/checkOneOutStockOrderItem')
+  @summary('验收一个出库订单项')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
@@ -257,6 +411,15 @@ export default class StockController extends Controller {
       required: true,
     }
   })
+  @request('post', '/stock/checkedAllOrderItems')
+  @summary('验收所有入库订单')
+  @Tag
+  @body({
+    orderID: {
+      type: 'ObjectId',
+      required: true,
+    }
+  })
   async checkedAll() {
     const { ctx } = this;
     const { service } = ctx;
@@ -265,7 +428,16 @@ export default class StockController extends Controller {
     ctx.body = res.map(item => item._id);
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   }
+  // })
+  @request('post', '/stock/checkedAllOutStockOrderItems')
+  @summary('验收所有出库订单')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
@@ -279,11 +451,20 @@ export default class StockController extends Controller {
     ctx.body = res.map(item => item._id);
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  // })
+  @request('post', '/stock/instock')
+  @summary('入库')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
-    },
+    }
   })
   async instock() {
     const { ctx } = this;
@@ -295,11 +476,20 @@ export default class StockController extends Controller {
     ctx.status = 201;
   }
 
-  @validateBody({
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   },
+  // })
+  @request('post', '/stock/outstock')
+  @summary('出库')
+  @Tag
+  @body({
     orderID: {
       type: 'ObjectId',
       required: true,
-    },
+    }
   })
   async outstock() {
     const { ctx } = this;

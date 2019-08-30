@@ -1,6 +1,17 @@
 import { Controller } from 'egg';
-
+import { request, path } from '@fsba/egg-wrapper';
 export default class SmsController extends Controller {
+  @request('put', '/sms/validateCode/{phoneNumber}/k/{kind}')
+  @path({
+    phoneNumber: {
+      type: 'string',
+      required: true,
+    },
+    kind: {
+      type: 'string',
+      required: true,
+    },
+  })
   async sendValidateCode() {
     const { ctx } = this;
     const { phoneNumber, kind } = this.ctx.params;

@@ -1,7 +1,8 @@
 import { Controller } from 'egg';
 import { validateQueryWithPager, validateBody, validateParams, validateQuery } from '../common/query.model';
 import { CreateCustomerRules, UpdateCustomerRules } from '../dto/customer.rule';
-
+import { request, queryWithPager, summary, tag } from '@fsba/egg-wrapper';
+const Tag = tag('用户模块');
 export default class CustomerController extends Controller {
   @validateQueryWithPager({
     enterprise: { type: 'ObjectId' },
@@ -68,9 +69,16 @@ export default class CustomerController extends Controller {
     };
   }
 
-  @validateQuery({
+  // @validateQuery({
+  //   search: { type: 'string', required: false },
+  // })
+  @request('get', '/customer/findCustomers')
+  @Tag
+  @queryWithPager({
+    enterprise: 'string',
     search: { type: 'string', required: false },
   })
+  @summary('获取商品库存列表')
   async getCustomerList() {
     const { ctx } = this;
     const { service } = ctx;
