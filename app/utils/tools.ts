@@ -1,5 +1,7 @@
 
-import * as pinyin from 'pinyin';
+import pinyin from 'pinyin';
+import moment from 'moment';
+import lodash from 'lodash';
 
 export function String2PinYin(str: string): string {
   const convertedPinyin = pinyin(str, {
@@ -13,4 +15,9 @@ export function String2PinYin(str: string): string {
   }
 
   return out;
+}
+
+export function genOrderNO() {
+  const t = moment();
+  return lodash.uniqueId(`${t.format('YYYYMMDDHHmmss')}`); 
 }

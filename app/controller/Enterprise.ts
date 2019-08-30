@@ -50,4 +50,25 @@ export default class Enterprise extends Controller {
 
     ctx.body = 'Deleted';
   }
+
+  /**
+   * 创建企业
+   */
+  async simpleCreate() {
+    const { ctx } = this;
+    const { license, payKind,  name, description, years } = ctx.request.body;
+
+    const created = await ctx.service.enterprise.createWithPayment(
+      license,
+      payKind,
+      {
+        name,
+        description,
+      },
+      years,
+    );
+    ctx.status = 201;
+    ctx.body = created;
+  }
+
 }

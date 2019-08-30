@@ -1,6 +1,6 @@
 import { Service } from 'egg';
 import { IProductionBatch } from '../model/ProductionBatch';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import { pagedResultBuild } from '../common/query.model';
 import { IProduct } from '../model/Product';
 import { IProductStock } from '../model/ProductStock';

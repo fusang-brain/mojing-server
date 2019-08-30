@@ -1,6 +1,6 @@
 
-import * as jwt from 'jsonwebtoken';
-import * as uuidv4 from 'uuid/v4';
+import jwt from 'jsonwebtoken';
+import uuidv4 from 'uuid/v4';
 
 export function genJwtToken(uid: string, salt:string): string {
   const token = jwt.sign({

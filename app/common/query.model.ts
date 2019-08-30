@@ -1,7 +1,7 @@
 import { DocumentQuery, Model, Document, Connection } from 'mongoose';
 import { Application, Context, MongooseSingleton } from 'egg';
 import { Condition } from './mongo.base';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import { RuleOptions } from './rules';
 
 

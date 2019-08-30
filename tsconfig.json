@@ -15,6 +15,7 @@
     // "noUnusedParameters": true,
     // "allowUnreachableCode": false,
     // "allowUnusedLabels": false,
+    "esModuleInterop": true,
     "strictPropertyInitialization": false,
     // "noFallthroughCasesInSwitch": true,
     // "skipLibCheck": true,

@@ -1,14 +1,28 @@
 
 import { Controller } from 'egg';
 import { FinanceValidationRule } from '../model/Finance';
-import { validateQuery, validateQueryWithPager, validateParams } from '../common/query.model';
-import * as moment from 'moment';
+// import { validateQuery, validateParams } from '../common/query.model';
+import moment from 'moment';
+import { request, summary, path, queryWithPager, query } from '@fsba/egg-wrapper';
+
 
 export default class FinanceController extends Controller {
 
-  @validateQueryWithPager({
-    enterprise: 'string',
-    date: 'string',
+  // @validateQueryWithPager({
+  //   enterprise: 'string',
+  //   date: 'string',
+  // })
+  @request('get', '/finance')
+  @summary('获取财务列表')
+  @queryWithPager({
+    enterprise: {
+      type: 'string',
+      description: '企业ID',
+    },
+    date: {
+      type: 'string',
+      description: '日期',
+    }
   })
   async index() {
     const { ctx } = this;
@@ -20,6 +34,8 @@ export default class FinanceController extends Controller {
     ctx.body = res;
   }
 
+  @request('post', '/finance')
+  @summary('新增财务')
   async create() {
     const { app, ctx } = this;
 
@@ -36,8 +52,9 @@ export default class FinanceController extends Controller {
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('delete', '/finance/{id}')
+  @path({
+    id: {type: 'ObjectId', description: 'objectID'},
   })
   async destroy() {
     const { ctx } = this;
@@ -48,7 +65,10 @@ export default class FinanceController extends Controller {
     ctx.body = res;
   }
 
-  @validateQuery({
+
+  @request('get', '/finance/statistic')
+  @summary('获取财务统计')
+  @query({
     enterprise: 'string',
     date: 'string',
   })

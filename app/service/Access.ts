@@ -1,7 +1,7 @@
 import { Service } from 'egg';
 import { IAccess } from '../model/Access';
 import { buildCondition } from '../common/query.model';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import { NotFoundError } from '../exception';
 
 export default class Access extends Service {

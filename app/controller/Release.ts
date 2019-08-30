@@ -1,7 +1,7 @@
 import { Controller } from 'egg';
-import * as yaml from 'js-yaml';
+import yaml from 'js-yaml';
 // import * as fs from 'fs';
-import * as req from 'request';
+import req from 'request';
 
 function readRemoteYaml(url: string): Promise<string> {
   return new Promise((resolve, reject) => {

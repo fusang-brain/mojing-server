@@ -23,11 +23,13 @@
   },
   "dependencies": {
     "@alicloud/pop-core": "^1.7.7",
+    "@fsba/egg-wrapper": "^1.0.4",
     "@types/bcrypt": "^3.0.0",
     "@types/js-yaml": "^3.12.1",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/lodash": "^4.14.123",
     "@types/moment": "^2.13.0",
+    "@types/ms": "^0.7.30",
     "@types/request": "^2.48.1",
     "@types/uuid": "^3.4.4",
     "bcrypt": "^3.0.6",

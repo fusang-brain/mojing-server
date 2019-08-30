@@ -5,7 +5,7 @@ import { defaultFieldsPlugin } from '../common/mongo.plugin';
 
 export interface IEnterprise extends SimpleDocument {
   name:string; // 企业名称
-  slug:string; 
+  slug?:string; 
   logo?:string; // 企业logo
   address?:string; // 企业地址
   linkman?:string; // 企业联系人
@@ -13,6 +13,7 @@ export interface IEnterprise extends SimpleDocument {
   businessLicense?:string; // 企业营业执照
   medicalEquipmentSalesLicense?:string; // 医疗许可证书
   description?:string; // 描述
+  expiredAt?: Date; // 企业认证过期时间
 }
 
 export default (app: Application) => {
@@ -27,6 +28,7 @@ export default (app: Application) => {
     businessLicense: Schema.Types.String,
     medicalEquipmentSalesLicense: Schema.Types.String,
     description: Schema.Types.String,
+    expiredAt: Schema.Types.Date,
   });
 
   EnterpriseSchema.plugin(defaultFieldsPlugin);

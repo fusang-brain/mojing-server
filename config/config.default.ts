@@ -1,5 +1,5 @@
 import { EggAppInfo,Context } from 'egg';
-import * as pathToRegex from 'path-to-regexp';
+import pathToRegex from 'path-to-regexp';
 import { MeYupConfig } from '.';
 
 const packageConfig = require('../package');
@@ -70,7 +70,8 @@ export default (appInfo: EggAppInfo): MeYupConfig  => ({
       '/welcome',
       '/release',
       '/sms/validateCode/(.*)',
-      // '/',
+      '/docs',
+      '/docs/(.*)',
     ]
   },
   alicloud: {

@@ -1,8 +1,8 @@
 import { Context, Application } from 'egg';
-import * as Core from '@alicloud/pop-core';
+import Core from '@alicloud/pop-core';
 import { genValidateCode } from './mbcrypt';
 import { ActionError } from '../exception';
-import * as moment from 'moment';
+import moment from 'moment';
 
 interface IParams {
   RegionId?: string;
@@ -138,7 +138,7 @@ class SMSService {
     const resp = await this.sendSMS({
       PhoneNumbers: phoneNumber,
       SignName: '扶桑彼岸',
-      TemplateCode: 'SMS_171117794',
+      TemplateCode: 'SMS_171541080',
       TemplateParam: JSON.stringify({
         code: valiateCode,
       }),

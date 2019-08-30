@@ -10,6 +10,8 @@ import ExportCustomer from '../../../app/model/Customer';
 import ExportEmployee from '../../../app/model/Employee';
 import ExportEmployeeAccess from '../../../app/model/EmployeeAccess';
 import ExportEnterprise from '../../../app/model/Enterprise';
+import ExportEnterpriseLicenseRecord from '../../../app/model/EnterpriseLicenseRecord';
+import ExportEnterprisePayment from '../../../app/model/EnterprisePayment';
 import ExportFinance from '../../../app/model/Finance';
 import ExportFinanceCategory from '../../../app/model/FinanceCategory';
 import ExportLog from '../../../app/model/Log';
@@ -36,6 +38,8 @@ declare module 'egg' {
     Employee: ReturnType<typeof ExportEmployee>;
     EmployeeAccess: ReturnType<typeof ExportEmployeeAccess>;
     Enterprise: ReturnType<typeof ExportEnterprise>;
+    EnterpriseLicenseRecord: ReturnType<typeof ExportEnterpriseLicenseRecord>;
+    EnterprisePayment: ReturnType<typeof ExportEnterprisePayment>;
     Finance: ReturnType<typeof ExportFinance>;
     FinanceCategory: ReturnType<typeof ExportFinanceCategory>;
     Log: ReturnType<typeof ExportLog>;

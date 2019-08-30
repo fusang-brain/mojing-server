@@ -1,7 +1,7 @@
 import { Service } from 'egg';
 import { IFinance } from '../model/Finance';
 import { pagedResultBuild } from '../common/query.model';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Types } from 'mongoose';
 
 export default class Finance extends Service {
