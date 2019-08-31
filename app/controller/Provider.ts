@@ -1,23 +1,36 @@
 import { Controller } from 'egg';
-import { validateQueryWithPager, validateParams, validateBody } from '../common/query.model';
+// import { validateQueryWithPager, validateParams, validateBody } from '../common/query.model';
 import { CreateProviderRules, UpdateProviderRules } from '../dto/provider.rule';
+import { tag, request, summary, queryWithPager, path, body } from '@fsba/egg-wrapper';
+
+const Tag = tag('供应商')
 
 export default class ProviderController extends Controller {
 
-  @validateQueryWithPager({
-    enterprise: 'ObjectId',
-  })
+  // @validateQueryWithPager({
+  //   enterprise: 'ObjectId',
+  // })
+  @request('get', '/provider')
+  @Tag
+  @summary('获取供应商列表')
+  @queryWithPager()
   async index() {
     const { ctx } = this;
     const { service } = ctx;
-
+    ctx.request.query.enterprise = ctx.enterprise;
     const res = await service.provider.findList(ctx.request.query);
 
     ctx.body = res;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  // @validateParams({
+  //   id: 'ObjectId',
+  // })
+  @request('get', '/provider/{id}')
+  @Tag
+  @summary('获取供应商详情')
+  @path({
+    id: { type: 'ObjectId', required: true, description: '供应商ID' }
   })
   async show() {
     const { ctx } = this;
@@ -31,7 +44,11 @@ export default class ProviderController extends Controller {
     };
   }
 
-  @validateBody(CreateProviderRules)
+  // @validateBody(CreateProviderRules)
+  @request('post', '/provider')
+  @Tag
+  @summary('新增供应商')
+  @body(CreateProviderRules)
   async create() {
     const { ctx } = this;
     const { service } = ctx;
@@ -43,10 +60,17 @@ export default class ProviderController extends Controller {
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  // @validateParams({
+  //   id: 'ObjectId',
+  // })
+  // @validateBody(UpdateProviderRules)
+  @request('put', '/provider/{id}')
+  @body(UpdateProviderRules)
+  @path({
+    id: { type: 'ObjectId', required: true, description: '供应商ID' }
   })
-  @validateBody(UpdateProviderRules)
+  @Tag
+  @summary('更新供应商信息')
   async update() {
     const { ctx } = this;
     const { service } = ctx;
@@ -57,9 +81,12 @@ export default class ProviderController extends Controller {
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('delete', '/provider/{id}')
+  @path({
+    id: { type: 'ObjectId', required: true, description: '供应商ID' }
   })
+  @Tag
+  @summary('删除供应商')
   async destroy() {
     const { ctx } = this;
     const { service } = ctx;

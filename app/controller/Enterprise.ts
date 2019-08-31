@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import { body, request, path, queryWithPager, summary, query, tag, validate } from '@fsba/egg-wrapper';
+import { request, path, summary, tag } from '@fsba/egg-wrapper';
 const Tag = tag('企业模块');
 export default class Enterprise extends Controller {
   
@@ -61,6 +61,7 @@ export default class Enterprise extends Controller {
       details,
     };
   }
+
   @request('delete', '/enterprise/{id}')
   @Tag
   @path({
@@ -88,7 +89,7 @@ export default class Enterprise extends Controller {
   @Tag
   async simpleCreate() {
     const { ctx } = this;
-    const { license, payKind,  name, description, years } = ctx.request.body;
+    const { license, payKind, name, description, years } = ctx.request.body;
 
     const created = await ctx.service.enterprise.createWithPayment(
       license,

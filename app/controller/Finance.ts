@@ -1,9 +1,9 @@
 
 import { Controller } from 'egg';
-import { FinanceValidationRule } from '../model/Finance';
+// import { FinanceValidationRule } from '../model/Finance';
 // import { validateQuery, validateParams } from '../common/query.model';
 import moment from 'moment';
-import { request, summary, path, queryWithPager, query } from '@fsba/egg-wrapper';
+import { request, summary, path, queryWithPager, query, body } from '@fsba/egg-wrapper';
 
 
 export default class FinanceController extends Controller {
@@ -32,16 +32,29 @@ export default class FinanceController extends Controller {
 
   @request('post', '/finance')
   @summary('新增财务')
+  @body({
+    kind: {
+      type: 'number',
+      required: true,
+    },
+    amount: 'number',
+    operator: 'string',
+    category: 'string',
+    // enterprise: {
+    //   type: 'string',
+    //   required: true,
+    // },
+  })
   async create() {
-    const { app, ctx } = this;
+    const { ctx } = this;
 
-    const invalid = app.validator.validate(FinanceValidationRule, ctx.request.body);
+    // const invalid = app.validator.validate(FinanceValidationRule, ctx.request.body);
 
-    if (invalid) {
-      ctx.throw(422, { errors: invalid });
-      return;
-    }
-
+    // if (invalid) {
+    //   ctx.throw(422, { errors: invalid });
+    //   return;
+    // }
+    
     const finance = await ctx.service.finance.create(ctx.request.body);
 
     ctx.body = finance;
@@ -65,12 +78,13 @@ export default class FinanceController extends Controller {
   @request('get', '/finance/statistic')
   @summary('获取财务统计')
   @query({
-    enterprise: 'string',
+    // enterprise: 'string',
     date: 'string',
   })
   async findStatistic() {
     const { ctx } = this;
-    const { date, enterprise } = ctx.query;
+    const { date } = ctx.query;
+    const { enterprise } = ctx;
     const resp = await ctx.service.finance.findStatistic(moment(date), enterprise);
 
     ctx.body = resp;

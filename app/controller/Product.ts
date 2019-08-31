@@ -178,13 +178,14 @@ export default class ProductController extends Controller {
   @request('get', '/product/stockList')
   @Tag
   @queryWithPager({
-    enterprise: 'string',
+   // enterprise: 'string',
     search: { type: 'string', required: false },
   })
   @summary('获取商品库存列表')
   async findProductStockList() {
-    const { service, request } = this.ctx;
+    const { service, request, enterprise } = this.ctx;
     // console.log(request.query, '>>>>query');
+    request.query.enterprise = enterprise;
     const list = await service.product.findProductStockList(request.query);
 
     this.ctx.body = list;

@@ -23,10 +23,10 @@ export default class Enterprise extends Service {
   async createWithPayment(license: ('free'|'pro'), payKind: PaymentMethod, data: any, years?: number) {
     const { model, app: { mongooseDB } } = this.ctx;
     const now = moment();
-    let _years = years || 1;
+    const _years = years || 1;
     let money = 0;
     if (license === 'pro') {
-      money = 2880 * _years;
+      money = _years * 2880;
     }
     const client = getMainConnection(mongooseDB);
 
@@ -64,7 +64,7 @@ export default class Enterprise extends Service {
         payment: payment[0],
         enterprise: created[0],
       }
-    } catch(e) {
+    } catch (e) {
       await session.abortTransaction();
       session.endSession();
     }

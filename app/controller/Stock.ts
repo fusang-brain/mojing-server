@@ -1,7 +1,7 @@
 
 import { Controller } from 'egg';
-import { validateBody } from '../common/query.model';
-import { request,summary, query, tag,queryWithPager,body } from '@fsba/egg-wrapper';
+// import { validateBody } from '../common/query.model';
+import { request, summary, query, tag, queryWithPager, body } from '@fsba/egg-wrapper';
 
 const Tag = tag('库存模块')
 
@@ -28,7 +28,7 @@ export default class StockController extends Controller {
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
-    enterprise: 'string',
+    // enterprise: 'string',
   })
   async createStockOrder() {
     const { ctx } = this;
@@ -63,7 +63,7 @@ export default class StockController extends Controller {
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
-    enterprise: 'string',
+    // enterprise: 'string',
   })
   async createOutStockOrder() {
     const { ctx } = this;
@@ -82,12 +82,11 @@ export default class StockController extends Controller {
   // })
   @request('get', '/stock/findOrders')
   @Tag
-  @queryWithPager({
-    enterprise: 'ObjectId'
-  })
+  @queryWithPager()
   async findOrders() {
     const { ctx } = this;
     const { service } = ctx;
+    ctx.request.query.enterprise = ctx.enterprise;
     const resp = await service.stock.findOrders(ctx.request.query);
     ctx.body = resp;
   }
@@ -97,12 +96,11 @@ export default class StockController extends Controller {
   // })
   @request('get', '/stock/findOutStockOrders')
   @Tag
-  @queryWithPager({
-    enterprise: 'ObjectId'
-  })
+  @queryWithPager()
   async findOutStockOrders() {
     const { ctx } = this;
     const { service } = ctx;
+    ctx.request.query.enterprise = ctx.enterprise;
     const resp = await service.stock.findOutStockOrders(ctx.request.query);
     ctx.body = resp;
   }
@@ -130,7 +128,7 @@ export default class StockController extends Controller {
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
-    enterprise: 'string',
+    // enterprise: 'string',
   })
   async updateOrder() {
     const { ctx } = this;
@@ -156,7 +154,7 @@ export default class StockController extends Controller {
   //   enterprise: 'string',
   // })
   @request('post', '/stock/updateOutStockOrder')
-  @summary('修改出库项目')
+  @summary('修改出库单')
   @Tag
   @body({
     _id: 'string',
@@ -167,7 +165,7 @@ export default class StockController extends Controller {
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
-    enterprise: 'string',
+    // enterprise: 'string',
   })
   async updateOutStockOrder() {
     const { ctx } = this;
@@ -366,20 +364,6 @@ export default class StockController extends Controller {
     ctx.body = ctx.request.body;
   }
 
-  // @validateBody({
-  //   orderID: {
-  //     type: 'ObjectId',
-  //     required: true,
-  //   },
-  //   itemID: {
-  //     type: 'ObjectId',
-  //     required: true,
-  //   },
-  //   checkQualifiedCount: {
-  //     type: 'number',
-  //     required: true,
-  //   },
-  // })
   @request('post', '/stock/checkOneOutStockOrderItem')
   @summary('验收一个出库订单项')
   @Tag
@@ -405,12 +389,13 @@ export default class StockController extends Controller {
     ctx.body = ctx.request.body;
   }
 
-  @validateBody({
-    orderID: {
-      type: 'ObjectId',
-      required: true,
-    }
-  })
+  // @validateBody({
+  //   orderID: {
+  //     type: 'ObjectId',
+  //     required: true,
+  //   }
+  // })
+
   @request('post', '/stock/checkedAllOrderItems')
   @summary('验收所有入库订单')
   @Tag
@@ -468,8 +453,8 @@ export default class StockController extends Controller {
   })
   async instock() {
     const { ctx } = this;
-    const { service, request } = ctx;
-    const { orderID, enterprise } = request.body;
+    const { service, request, enterprise } = ctx;
+    const { orderID } = request.body;
     const res = await service.stock.instock(orderID, enterprise);
 
     ctx.body = res;
@@ -493,8 +478,8 @@ export default class StockController extends Controller {
   })
   async outstock() {
     const { ctx } = this;
-    const { service, request } = ctx;
-    const { orderID, enterprise } = request.body;
+    const { service, request, enterprise } = ctx;
+    const { orderID } = request.body;
     const res = await service.stock.outstock(orderID, enterprise);
 
     ctx.body = res;

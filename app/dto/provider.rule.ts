@@ -1,7 +1,7 @@
 import { RuleOptions } from '../common/rules';
 
 export const CreateProviderRules: RuleOptions = {
-  enterprise: { type: 'string', required: true },
+  // enterprise: { type: 'string', required: true },
   name: { type: 'string', required: true },
   contacts: { type: 'string', required: false },
   contactPhone: { type: 'string', required: false },

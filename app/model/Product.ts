@@ -7,13 +7,13 @@ import { IEnterprise } from './Enterprise';
 import { RuleOptions } from '../common/rules';
 
 export const CommonProductRules: RuleOptions = {
-  kind:'string',
-  enterprise: 'string',
-  category:'string',
-  code:'string',
-  name:'string',
-  salePrice:'number',
-  unitPurchasePrice:'number',
+  kind: 'string',
+  // enterprise: 'string',
+  category: 'string',
+  code: 'string',
+  name: 'string',
+  salePrice: 'number',
+  unitPurchasePrice: 'number',
   manufacturers: {
     type: 'string',
     required: false,
@@ -61,13 +61,13 @@ export const CommonProductRules: RuleOptions = {
 };
 
 export const EyeglassProductRules: RuleOptions = {
-  kind:'string',
-  enterprise: 'string',
+  kind: 'string',
+ // enterprise: 'string',
   // category:'string',
-  code:'string',
-  name:'string',
-  salePrice:'number',
-  unitPurchasePrice:'number',
+  code: 'string',
+  name: 'string',
+  salePrice: 'number',
+  unitPurchasePrice: 'number',
   registerCode: {
     type: 'string',
     required: false,
@@ -111,13 +111,13 @@ export const EyeglassProductRules: RuleOptions = {
 };
 
 export const ContactLensesRules: RuleOptions = {
-  kind:'string',
-  enterprise: 'string',
-  category:'string',
-  code:'string',
-  name:'string',
-  salePrice:'number',
-  unitPurchasePrice:'number',
+  kind: 'string',
+  // enterprise: 'string',
+  category: 'string',
+  code: 'string',
+  name: 'string',
+  salePrice: 'number',
+  unitPurchasePrice: 'number',
   manufacturers: {
     type: 'string',
     required: false,
@@ -138,21 +138,21 @@ export const ContactLensesRules: RuleOptions = {
       diopter: 'string',
       BOZR: 'string',
       diameter: 'string',
-      color:'string',
-      startDate:'string',
-      expirationDate:'string',
+      color: 'string',
+      startDate: 'string',
+      expirationDate: 'string',
     },
   },
 }
 
 export const ServicesRules: RuleOptions = {
-  kind:'string',
-  enterprise: 'string',
+  kind: 'string',
+  // enterprise: 'string',
   // registerCode:'string',
-  code:'string',
-  name:'string',
-  salePrice:'number',
-  unitPurchasePrice:'number',
+  code: 'string',
+  name: 'string',
+  salePrice: 'number',
+  unitPurchasePrice: 'number',
   manufacturers: {
     type: 'string',
     required: false,
@@ -164,36 +164,36 @@ export const ServicesRules: RuleOptions = {
 }
 
 export interface IProduct extends BaseDocument {
-  kind?:number; // 0: 普通商品 1: 光学镜片 2: 隐形眼镜 3: 服务项目
-  category?:string; // 分类
-  code:string; // 商品编码
-  name:string; // 名称
-  salePrice:number; // 售价
-  unitPurchasePrice:number; // 单位进价
-  manufacturers?:string; // 厂家
-  provider?:string; // 供应商
-  brand?:string; // 品牌
-  typeSpecification?:string; // 型号
-  colorNumber?:string; // 色号
-  frameHeight?:string; // 框架长
-  frameWidth?:string; // 框架宽
-  noseBridgeWeight?:string; // 鼻梁宽
-  frameLegLength?:string; // 镜腿长
-  frameWeight?:string; // 镜架重量
-  diopter?:string; // 屈光度
+  kind?: number; // 0: 普通商品 1: 光学镜片 2: 隐形眼镜 3: 服务项目
+  category?: string; // 分类
+  code: string; // 商品编码
+  name: string; // 名称
+  salePrice: number; // 售价
+  unitPurchasePrice: number; // 单位进价
+  manufacturers?: string; // 厂家
+  provider?: string; // 供应商
+  brand?: string; // 品牌
+  typeSpecification?: string; // 型号
+  colorNumber?: string; // 色号
+  frameHeight?: string; // 框架长
+  frameWidth?: string; // 框架宽
+  noseBridgeWeight?: string; // 鼻梁宽
+  frameLegLength?: string; // 镜腿长
+  frameWeight?: string; // 镜架重量
+  diopter?: string; // 屈光度
 
   // 镜片相关
-  sphere?:string; // 球镜
-  lenticularGrating?:string; // 柱镜
-  axialView?:string; // 轴位
-  refractiveIndex?:string; // 折射率
-  texture?:string; // 材质
+  sphere?: string; // 球镜
+  lenticularGrating?: string; // 柱镜
+  axialView?: string; // 轴位
+  refractiveIndex?: string; // 折射率
+  texture?: string; // 材质
 
-  unit?:string; // 计量单位
-  registerCode?:string; // 注册证号
+  unit?: string; // 计量单位
+  registerCode?: string; // 注册证号
 
-  productionBatch?:Array<IProductionBatch>;
-  enterpriseInfo?:IEnterprise;
+  productionBatch?: Array<IProductionBatch>;
+  enterpriseInfo?: IEnterprise;
 }
 
 export default (app: Application) => {

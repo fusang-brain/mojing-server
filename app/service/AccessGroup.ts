@@ -58,7 +58,7 @@ export default class AccessGroup extends Service {
       await foundGroup.save({ session});
       await session.commitTransaction();
       session.endSession();
-    } catch(e) {
+    } catch (e) {
       await session.abortTransaction();
       session.endSession();
     }
@@ -86,7 +86,7 @@ export default class AccessGroup extends Service {
       session.endSession();
 
       return foundGroup;
-    } catch(e) {
+    } catch (e) {
       await session.abortTransaction();
       session.endSession();
       return {};
@@ -101,7 +101,7 @@ export default class AccessGroup extends Service {
       accessGroup: groupID,
     });
 
-    return relate.map(r =>  r.access);
+    return relate.map(r => r.access);
   }
 
   async addAccessToGroup(groupID: ObjectID, accesses: Array<ObjectID>) {
@@ -115,7 +115,7 @@ export default class AccessGroup extends Service {
     session.startTransaction();
 
     try {
-      let relate: Array<{
+      const relate: Array<{
         accessGroup?: string;
         access?: string;
       }> = [];
@@ -147,7 +147,7 @@ export default class AccessGroup extends Service {
       }).session(session);
       await session.commitTransaction();
       session.endSession();
-    } catch(e) {
+    } catch (e) {
       console.error(e);
       await session.abortTransaction();
       session.endSession();

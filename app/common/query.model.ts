@@ -128,14 +128,14 @@ export function validateBody(rules?: RuleOptions) {
   }
 }
 
-export function validateQueryWithPager(rules?: RuleOptions, throwError?:boolean) {
+export function validateQueryWithPager(rules?: RuleOptions, throwError?: boolean) {
   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     const method: () => Promise<void> = descriptor.value;
     async function doValidate() {
       const app = (this.app as Application);
       const ctx = (this.ctx as Context);
 
-      let queries:Query = ctx.request.query;
+      const queries: Query = ctx.request.query;
 
       if (queries.page) {
         queries['page'] = +queries.page;

@@ -5,6 +5,7 @@ import { IProvider } from '../model/Provider';
 export default class ProviderService extends Service {
   async create(body: IDict) {
     const { model } = this.ctx;
+    body.enterprise = this.ctx.enterprise;
     const createdProvider = await model.Provider.create(body);
 
     return createdProvider;
@@ -61,7 +62,7 @@ export default class ProviderService extends Service {
     return id;
   }
 
-  async findSimpleProvidersByEnterprise(enterprise: String) {
+  async findSimpleProvidersByEnterprise(enterprise: string) {
     const { model } = this.ctx;
     const list = await model.Provider.find();
 

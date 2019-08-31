@@ -11,6 +11,7 @@ export default class Finance extends Service {
   async create(finance: IFinance): Promise<IFinance> {
     const { ctx } = this;
     const { model } = ctx;
+    finance.enterprise = ctx.enterprise;
     const willCreatedFinance = new model.Finance(finance);
 
     return await willCreatedFinance.save();
@@ -54,7 +55,7 @@ export default class Finance extends Service {
 
   async findStatistic(date: moment.Moment, enterprise: string) {
     const year = date.year();
-    const month = date.month()+1;
+    const month = date.month() + 1;
     console.log(year, month);
     const { ctx } = this;
     const { model } = ctx;

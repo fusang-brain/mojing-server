@@ -4,16 +4,16 @@ import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugi
 import { Schema } from 'mongoose';
 
 export interface ICustomer extends BaseDocument {
-  name?:string;
-  gender?:string;
-  birthday?:Date;
-  wechat?:string;
-  mobile?:string;
-  contactAddress?:string;
-  job?:string;
-  contacts?:string[];
-  introducer?:string; // 介绍人
-  note?:string; // 备注
+  name?: string;
+  gender?: string;
+  birthday?: Date;
+  wechat?: string;
+  mobile?: string;
+  contactAddress?: string;
+  job?: string;
+  contacts?: string[];
+  introducer?: string; // 介绍人
+  note?: string; // 备注
   integral?: number; // 积分
 
   lastShopDate?: Date;
