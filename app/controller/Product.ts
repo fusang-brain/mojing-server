@@ -3,6 +3,7 @@ import { Controller } from 'egg';
 // import { validateBody, validateQueryWithPager, validateQuery, validateParams } from '../common/query.model';
 import { CommonProductRules, EyeglassProductRules, ContactLensesRules, ServicesRules } from '../model/Product';
 import { body, request, path, queryWithPager, summary, query, tag, validate } from '@fsba/egg-wrapper';
+import { apiObjects } from 'egg-swagger-decorator';
 
 const Tag = tag('商品模块')
 
@@ -139,17 +140,20 @@ export default class ProductController extends Controller {
   @Tag
   @path({
     id: {
-      type: 'ObjectId',
+      type: 'string',
       required: true,
       description: '商品ID',
     }
   })
   async show() {
+    console.log(apiObjects, 'apiObjects');
     const { ctx } = this;
     const { service } = ctx;
 
     const { id } = ctx.params;
     const resp = await service.product.findInfo(id);
+
+    
 
     ctx.body = {
       info: resp,

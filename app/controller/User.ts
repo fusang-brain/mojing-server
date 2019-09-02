@@ -33,26 +33,17 @@ export default class UserController extends Controller {
   @request('post', '/user/login')
   @summary('用户登录')
   @Tag
-  @body({
-    username: {
-      type: 'string',
-      required: true,
-      description: '用户名/手机号'
-    },
-    password: {
-      type: 'string',
-      required: true,
-      description: '密码'
-    }
-  })
+  @body(UserLoginValidateRules)
+  // UserLoginValidateRules
   async login() {
     const { app, ctx } = this;
-    const invalid = app.validator.validate(UserLoginValidateRules, ctx.request.body);
+    // const invalid = app.validator.validate(UserLoginValidateRules, ctx.request.body);
     
-    if (invalid) {
-      ctx.throw(422, { errors: invalid });
-      return;
-    }
+    // if (invalid) {
+    //   ctx.throw(422, { errors: invalid });
+    //   return;
+    // }
+    // console.log(ctx.request.body);
 
     const loginUser = await ctx.service.user.login(ctx.request.body);
 
