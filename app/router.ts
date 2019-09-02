@@ -1,5 +1,6 @@
 import { Application } from 'egg';
 import { routerWrapper } from '@fsba/egg-wrapper';
+
 export default (app: Application) => {
   // const { controller, router } = app;
   routerWrapper(app, {
@@ -11,6 +12,7 @@ export default (app: Application) => {
     description: 'API',
   });
 
+  // console.log(stacks, 'router');
   // router.get('/', controller.home.index);
   // router.get('/welcome', controller.home.index);
   // router.resources('finance', '/finance', controller.finance);
