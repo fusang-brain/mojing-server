@@ -1,9 +1,12 @@
 {
   "extends": ["tslint-config-egg"],
   "rules": {
+    "object-literal-key-quotes": false,
+    "ter-prefer-arrow-callback": false,
     "no-console": false,
     "object-literal-sort-keys": false,
     "member-access": false,
+    "only-arrow-functions": false,
     "no-shadowed-variable": false,
     "no-var-requires": false,
     "prefer-for-of": false,

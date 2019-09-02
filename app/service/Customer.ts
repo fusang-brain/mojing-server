@@ -5,6 +5,7 @@ import { ICustomer } from '../model/Customer';
 export default class Customer extends Service {
   async create(body: IDict) {
     const { model } = this.ctx;
+    body.enterprise = this.ctx.enterprise;
     const createdCustomer = await model.Customer.create(body);
 
     return createdCustomer;

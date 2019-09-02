@@ -8,14 +8,14 @@ export default class StockService extends Service {
   async createOrder(body: IDict) {
     const { ctx } = this;
     const { model } = ctx;
-
+    body.enterprise = ctx.enterprise;
     return model.StockOrder.create(body);
   }
 
   async createOutStockOrder(body: IDict) {
     const { ctx } = this;
     const { model } = ctx;
-
+    body.enterprise = ctx.enterprise;
     return model.OutStockOrder.create(body);
   }
 
@@ -23,6 +23,7 @@ export default class StockService extends Service {
     const { _id, ...restBody } = body;
     const { ctx } = this;
     const { model } = ctx;
+    body.enterprise = ctx.enterprise;
     await model.StockOrder.update({
       _id,
     }, restBody);
@@ -36,6 +37,7 @@ export default class StockService extends Service {
     const { _id, ...restBody } = body;
     const { ctx } = this;
     const { model } = ctx;
+    body.enterprise = ctx.enterprise;
     await model.OutStockOrder.update({
       _id,
     }, restBody);
@@ -61,7 +63,7 @@ export default class StockService extends Service {
     const { model } = ctx;
 
     return await pagedResultBuild<IOutStockOrder>(model.OutStockOrder, query, (queries) => {
-      return queries.populate('checkerObj').sort([['outStockTime', -1], ['createdAt', -1]]);;
+      return queries.populate('checkerObj').sort([['outStockTime', -1], ['createdAt', -1]]);
     });
   }
 
@@ -111,7 +113,7 @@ export default class StockService extends Service {
     const { ctx } = this;
     const { model } = ctx;
     const { orderID } = query;
-    const items  = await model.StockOrderItem.find({
+    const items = await model.StockOrderItem.find({
       orderID: orderID,
       deleted: false,
     }).populate('productInfo').populate('productBatchInfo');
@@ -124,7 +126,7 @@ export default class StockService extends Service {
     const { model } = ctx;
     const { orderID } = query;
 
-    const items  = await model.OutStockOrderItem.find({
+    const items = await model.OutStockOrderItem.find({
       orderID: orderID,
       deleted: false,
     }).populate('productInfo').populate('productBatchInfo');

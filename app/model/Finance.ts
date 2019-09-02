@@ -4,11 +4,11 @@ import { BaseDocument } from '../common/mongo.base';
 import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugin';
 
 export interface IFinance extends BaseDocument {
-  kind?:number; // 0: 支出， 1: 收入
-  amount?:number;
-  operator?:string;
-  date?:Date;
-  category?:string;
+  kind?: number; // 0: 支出， 1: 收入
+  amount?: number;
+  operator?: string;
+  date?: Date;
+  category?: string;
 }
 
 export const FinanceValidationRule = {

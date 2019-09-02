@@ -1,7 +1,9 @@
 import { Controller } from 'egg';
-import { request, path } from '@fsba/egg-wrapper';
+import { request, path, summary } from '@fsba/egg-wrapper';
 export default class SmsController extends Controller {
+
   @request('put', '/sms/validateCode/{phoneNumber}/k/{kind}')
+  @summary('发送短信')
   @path({
     phoneNumber: {
       type: 'string',

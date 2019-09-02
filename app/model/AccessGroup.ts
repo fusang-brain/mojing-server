@@ -5,7 +5,7 @@ import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugi
 
 // 权限组/角色组
 export interface IAccessGroup extends BaseDocument {
-  name?:string;
+  name?: string;
   kind?: ('system'|'enterprise');
 }
 

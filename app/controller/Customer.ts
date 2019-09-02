@@ -1,22 +1,29 @@
 import { Controller } from 'egg';
-import { validateQueryWithPager, validateBody, validateParams, validateQuery } from '../common/query.model';
+// import { validateBody, validateParams } from '../common/query.model';
 import { CreateCustomerRules, UpdateCustomerRules } from '../dto/customer.rule';
-import { request, queryWithPager, summary, tag } from '@fsba/egg-wrapper';
-const Tag = tag('用户模块');
+import { request, queryWithPager, summary, tag, body, path } from '@fsba/egg-wrapper';
+
+const Tag = tag('会员模块');
+
 export default class CustomerController extends Controller {
-  @validateQueryWithPager({
-    enterprise: { type: 'ObjectId' },
-  })
+
+  @request('get', '/customer')
+  @Tag
+  @queryWithPager({})
+  @summary('获取客户列表')
   async index() {
     const { ctx } = this;
     const { service } = ctx;
-
+    ctx.request.query.enterprise = ctx.enterprise;
     const res = await service.customer.findList(ctx.request.query);
 
     ctx.body = res;
   }
 
-  @validateBody(CreateCustomerRules)
+  @request('post', '/customer')
+  @Tag
+  @summary('新增客户')
+  @body(CreateCustomerRules)
   async create() {
     const { ctx } = this;
     const { service } = ctx;
@@ -28,10 +35,17 @@ export default class CustomerController extends Controller {
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('put', '/customer/{id}')
+  @Tag
+  @path({
+    id: {
+      type: 'ObjectId',
+      required: true,
+      description: '会员id'
+    }    
   })
-  @validateBody(UpdateCustomerRules)
+  @summary('修改会员信息')
+  @body(UpdateCustomerRules)
   async update() {
     const { ctx } = this;
     const { service } = ctx;
@@ -42,9 +56,12 @@ export default class CustomerController extends Controller {
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('delete', '/customer/{id}')
+  @path({
+    id: { type: 'ObjectId', required: true, description: '客户ID' },
   })
+  @Tag
+  @summary('删除客户')
   async destroy() {
     const { ctx } = this;
     const { service } = ctx;
@@ -54,9 +71,12 @@ export default class CustomerController extends Controller {
     ctx.body = res;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('get', '/customer/{id}')
+  @Tag
+  @path({
+    id: { type: 'ObjectId', required: true, description: '客户ID' },
   })
+  @summary('通过 {id} 获取客户信息')
   async show() {
     const { ctx } = this;
     const { service } = ctx;
@@ -69,13 +89,10 @@ export default class CustomerController extends Controller {
     };
   }
 
-  // @validateQuery({
-  //   search: { type: 'string', required: false },
-  // })
   @request('get', '/customer/findCustomers')
   @Tag
   @queryWithPager({
-    enterprise: 'string',
+    // enterprise: 'string',
     search: { type: 'string', required: false },
   })
   @summary('获取商品库存列表')
@@ -84,7 +101,7 @@ export default class CustomerController extends Controller {
     const { service } = ctx;
 
     // const { search } = ctx.params;
-
+    ctx.query.enterprise = ctx.enterprise;
     const list = await service.customer.findCustomers(ctx.query);
 
     this.ctx.body = {

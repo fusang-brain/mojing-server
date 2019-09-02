@@ -6,8 +6,8 @@ import { RuleOptions } from '../common/rules';
 
 
 export interface IFinanceCategory extends BaseDocument {
-  slug?:string;
-  name?:string;
+  slug?: string;
+  name?: string;
 }
 
 export const FinanceCategoryValidationRule: RuleOptions = {

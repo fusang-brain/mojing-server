@@ -1,4 +1,4 @@
-import { EggAppInfo,Context } from 'egg';
+import { EggAppInfo, Context } from 'egg';
 import pathToRegex from 'path-to-regexp';
 import { MeYupConfig } from '.';
 
@@ -6,7 +6,7 @@ const packageConfig = require('../package');
 
 
 
-export default (appInfo: EggAppInfo): MeYupConfig  => ({
+export default (appInfo: EggAppInfo): MeYupConfig => ({
   
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
@@ -15,7 +15,7 @@ export default (appInfo: EggAppInfo): MeYupConfig  => ({
   security: {
     csrf: false,
   },
-  middleware: ['loadEnterprise', 'errorHandler', 'notfoundHandler'],
+  middleware: ['errorHandler', 'notfoundHandler'],
   mongoose: {
     client: {
       url: 'mongodb://127.0.0.1/MeYupShop',

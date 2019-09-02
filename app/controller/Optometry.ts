@@ -1,22 +1,33 @@
 import { Controller } from 'egg';
-import { validateQueryWithPager, validateBody, validateParams } from '../common/query.model';
+// import { validateBody, validateParams } from '../common/query.model';
 import { CreateOptometryRules } from '../dto/optometry.rule';
+import { request, queryWithPager, tag, body, path } from '@fsba/egg-wrapper';
+import { summary } from 'egg-swagger-decorator';
 
+const Tag = tag('验光信息模块')
 
 export default class OptometryController extends Controller {
-  @validateQueryWithPager({
-    enterprise: 'ObjectId',
-  })
+  // @validateQueryWithPager({
+  //   enterprise: 'ObjectId',
+  // })
+  @request('get', '/optometry')
+  @queryWithPager()
+  @summary('获取验光列表')
+  @Tag
   async index() {
     const { ctx } = this;
     const { service } = ctx;
-
+    ctx.request.query.enterprise = ctx.enterprise;
     const res = await service.optometry.findList(ctx.request.query);
 
     ctx.body = res;
   }
 
-  @validateBody(CreateOptometryRules)
+  // @validateBody(CreateOptometryRules)
+  @request('post', '/optometry')
+  @summary('新增验光信息')
+  @Tag
+  @body(CreateOptometryRules)
   async create() {
     const { ctx } = this;
     const { service } = ctx;
@@ -28,9 +39,15 @@ export default class OptometryController extends Controller {
     ctx.status = 201;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  // @validateParams({
+  //   id: 'ObjectId',
+  // })
+  @request('delete', '/optometry/{id}')
+  @path({
+    id: { type: 'ObjectId', required: true, description: '验光ID'}
   })
+  @Tag
+  @summary('通过{id}删除验光信息')
   async destroy() {
     const { ctx } = this;
     const { service } = ctx;
@@ -40,9 +57,15 @@ export default class OptometryController extends Controller {
     ctx.body = res;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  // @validateParams({
+  //   id: 'ObjectId',
+  // })
+  @request('get', '/optometry/{id}')
+  @path({
+    id: { type: 'ObjectId', required: true, description: '验光ID' },
   })
+  @summary('获取验光详情')
+  @Tag
   async show() {
     const { ctx } = this;
     const { service } = ctx;

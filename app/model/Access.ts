@@ -6,7 +6,7 @@ import { defaultFieldsPlugin } from '../common/mongo.plugin';
 export interface IAccess extends SimpleDocument {
   subject: string; // 权限对象
   subjectName?: string; // 对象显示名称
-  name:string; // 权限名称
+  name: string; // 权限名称
   displayName?: string; // 权限显示名称
 }
 

@@ -5,7 +5,9 @@ import { Connection } from 'mongoose';
 
 export default class SaleService extends Service {
   async create(body: IDict) {
+    
     const { model, app: { mongooseDB } } = this.ctx;
+    body.enterprise = this.ctx.enterprise;
     let client: Connection;
 
     if (mongooseDB instanceof Connection) {
@@ -31,7 +33,7 @@ export default class SaleService extends Service {
       // console.log(productCountMap, 'pcMap');
 
       const foundProducts = await model.ProductStock.find({
-        productID: { "$in": products },
+        productID: { '$in': products },
       }).session(session);
 
       // console.log(foundProducts, 'fp');//
@@ -103,7 +105,7 @@ export default class SaleService extends Service {
       await session.commitTransaction();
       session.endSession();
       return true;
-    } catch(error) {
+    } catch (error) {
       await session.abortTransaction();
       session.endSession();
       this.ctx.throw(400, error);

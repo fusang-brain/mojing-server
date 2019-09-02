@@ -8,13 +8,13 @@ function readRemoteYaml(url: string): Promise<string> {
     try {
       req.get(url, (error, response, body) => {
         console.log(body, 'body');
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode === 200) {
           resolve(body);
         } else {
           resolve('');
         }
       });
-    } catch(e) {
+    } catch (e) {
       reject(e);
     }
   });
@@ -42,7 +42,7 @@ class ReleaseController extends Controller {
     if (os === 'mac') {
       filename = 'latest-mac.yml';  
     }
-    let docBody = await readRemoteYaml(`http://release.meyup.io/store/${filename}`);
+    const docBody = await readRemoteYaml(`http://release.meyup.io/store/${filename}`);
     const doc = yaml.safeLoad(docBody);
     
     if (os === 'mac') {

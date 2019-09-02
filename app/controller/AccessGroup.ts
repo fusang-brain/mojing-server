@@ -1,11 +1,13 @@
 import { Controller } from 'egg';
-import { validateParams, validateBody, validateQueryWithPager } from '../common/query.model';
-import { request, path, summary, tag } from '@fsba/egg-wrapper';
+// import { validateParams, validateBody, validateQueryWithPager } from '../common/query.model';
+import { request, path, summary, tag, body, queryWithPager } from '@fsba/egg-wrapper';
 const Tag = tag('权限模块');
 export default class AccessGroupController extends Controller {
 
 
-  @validateQueryWithPager({})
+  @request('get', '/accessGroup')
+  @summary('获取权限组')
+  @queryWithPager({})
   async index() {
     const { ctx } = this;
     const { service } = ctx;
@@ -14,9 +16,11 @@ export default class AccessGroupController extends Controller {
     ctx.body = res;
   }
 
-  @validateBody({
-    name: { type: 'string' },
-    kind: { type: 'enum', values: ['system','enterprise'] },
+  @request('post', '/accessGroup')
+  @summary('新增权限组')
+  @body({
+    name: { type: 'string', required: true },
+    kind: { type: 'enum', values: ['system', 'enterprise'] },
   })
   async create() {
     const { ctx } = this;
@@ -31,11 +35,19 @@ export default class AccessGroupController extends Controller {
     ctx.status = 201;
   }
 
-  @validateBody({
-    name: 'string',
+  @request('put', '/accessGroup')
+  @summary('修改商品信息')
+  @body({
+    name: {
+      type: 'string',
+      required: false,
+    }
   })
-  @validateParams({
-    id: 'ObjectId',
+  @path({
+    id: {
+      type: 'ObjectId',
+      required: true,
+    }
   })
   async update() {
     const { ctx } = this;
@@ -49,8 +61,14 @@ export default class AccessGroupController extends Controller {
     ctx.status = 200;
   }
 
-  @validateParams({
-    id: 'ObjectId',
+  @request('delete', '/accessGroup')
+  @summary('删除商品')
+  @path({
+    id: {
+      type: 'ObjectId',
+      required: true,
+      description: '商品ID'
+    }
   })
   async destroy() {
     const { ctx } = this;
@@ -63,12 +81,6 @@ export default class AccessGroupController extends Controller {
     ctx.body = 'deleted';
   }
 
-  // @validateParams({
-  //   id: {
-  //     type: 'ObjectId',
-  //     required: true,
-  //   }
-  // })
   @request('put', '/accessGroup/add-access/{id}')
   @summary('添加对组的访问权限')
   @Tag
@@ -83,15 +95,9 @@ export default class AccessGroupController extends Controller {
 
     await service.accessGroup.addAccessToGroup(id, accesses);
 
-    ctx.body = "Updated";
+    ctx.body = 'Updated';
   }
 
-  // @validateParams({
-  //   id: {
-  //     type: 'ObjectId',
-  //     required: true,
-  //   }
-  // })
   @request('get', '/accessGroup/accesses/{id}')
   @summary('查询组权限')
   @Tag

@@ -5,7 +5,8 @@ import { Optometry } from '../model/Optometry';
 
 export default class Customer extends Service {
   async create(body: IDict) {
-    const { model } = this.ctx;
+    const { model, enterprise } = this.ctx;
+    body.enterprise = enterprise;
     const created = await model.Optometry.create(body);
 
     return created;

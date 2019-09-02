@@ -1,7 +1,7 @@
 import { RuleOptions } from '../common/rules';
 
 export const CreateCustomerRules: RuleOptions = {
-  enterprise: { type: 'string', required: true },
+  // enterprise: { type: 'string', required: true },
   name: { type: 'string', required: true },
   mobile: { type: 'string', required: true },
   gender: { type: 'string', required: true },
@@ -25,7 +25,7 @@ export const CreateCustomerRules: RuleOptions = {
 }
 
 export const UpdateCustomerRules: RuleOptions = {
-  enterprise: { type: 'string', required: true },
+  // enterprise: { type: 'string', required: true },
   name: { type: 'string', required: true },
   mobile: { type: 'string', required: true },
   gender: { type: 'string', required: true },

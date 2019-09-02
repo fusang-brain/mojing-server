@@ -23,7 +23,7 @@ export default class Employee extends Service {
 
     const session = await client.startSession();
     session.startTransaction();
-    let opts = { session };
+    const opts = { session };
     try {
       const initialPassword = genInitialPassword();
       const hashedPassword = await hashPassword(initialPassword);
@@ -88,7 +88,7 @@ export default class Employee extends Service {
         user: newUser,
       };
 
-    } catch(e) {
+    } catch (e) {
       console.log(e, 'error');
       await session.abortTransaction();
       session.endSession();
@@ -132,7 +132,7 @@ export default class Employee extends Service {
   }
 
   async remove(id: ObjectID) {
-    const {  app: { mongooseDB }, enterprise, model } = this.ctx;
+    const { app: { mongooseDB }, enterprise, model } = this.ctx;
 
     const client = getMainConnection(mongooseDB);
 
@@ -158,7 +158,7 @@ export default class Employee extends Service {
       await session.commitTransaction();
       session.endSession();
 
-    } catch(error) {
+    } catch (error) {
       await session.abortTransaction();
       session.endSession();
       this.ctx.throw(400, error);
@@ -207,7 +207,7 @@ export default class Employee extends Service {
       
       await session.commitTransaction();
       session.endSession();
-    } catch(err) {
+    } catch (err) {
       await session.abortTransaction();
       session.endSession();
       console.log(err);
