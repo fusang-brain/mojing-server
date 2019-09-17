@@ -7,6 +7,7 @@ import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugi
 export interface IAccessGroup extends BaseDocument {
   name?: string;
   kind?: ('system'|'enterprise');
+  role?: ('root'|'user');
 }
 
 export default (app: Application) => {
@@ -14,7 +15,8 @@ export default (app: Application) => {
 
   const AccessGroupSchema = new mongoose.Schema({
     name: { type: Schema.Types.String, required: true },
-    kind: { type: Schema.Types.String, required: false },
+    kind: { type: Schema.Types.String, required: false, default: 'enterprise' },
+    role: { type: Schema.Types.String, required: false, default: 'user' },
   });
 
   AccessGroupSchema.plugin(defaultFieldsPlugin);

@@ -80,6 +80,20 @@ export default class Employee extends Service {
       } as IEmployee);
 
       await createdEmployee.save({ session });
+
+      // const foundRole = await model.AccessGroup.findOne({ _id: body.role }).session(session);
+
+      // if (!foundRole) {
+      //   throw new NotFoundError('Not found this role');
+      // }
+
+      await model.EmployeeAccess.create([{
+        employee: createdEmployee._id,
+        accessGroup: body.role,
+      }], {
+        session,
+      });
+
       await session.commitTransaction();
       session.endSession();
 

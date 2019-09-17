@@ -3,7 +3,6 @@ import { Controller } from 'egg';
 // import { validateBody, validateQueryWithPager, validateQuery, validateParams } from '../common/query.model';
 import { CommonProductRules, EyeglassProductRules, ContactLensesRules, ServicesRules } from '../model/Product';
 import { body, request, path, queryWithPager, summary, query, tag, validate } from '@fsba/egg-wrapper';
-import { apiObjects } from 'egg-swagger-decorator';
 
 const Tag = tag('商品模块')
 
@@ -146,7 +145,6 @@ export default class ProductController extends Controller {
     }
   })
   async show() {
-    console.log(apiObjects, 'apiObjects');
     const { ctx } = this;
     const { service } = ctx;
 
@@ -188,7 +186,6 @@ export default class ProductController extends Controller {
   @summary('获取商品库存列表')
   async findProductStockList() {
     const { service, request, enterprise } = this.ctx;
-    // console.log(request.query, '>>>>query');
     request.query.enterprise = enterprise;
     const list = await service.product.findProductStockList(request.query);
 
@@ -214,16 +211,9 @@ export default class ProductController extends Controller {
     ctx.body = res;
   }
 
-  // @validateBody({
-  //   productID: 'string',
-  //   expirationDate: { type: 'string', required: true },
-  //   startDate: { type: 'string', required: true },
-  //   color: { type: 'string', required: false },
-  //   diameter: { type: 'string', required: false },
-  //   BOZR: { type: 'string', required: false },
-  //   diopter: { type: 'string', required: false },
-  //   batchNumber: { type: 'string', required: true },
-  // })
+
+  @request('post', '/product/createBatch')
+  @Tag
   @validate('body', {
     productID: 'string',
     expirationDate: { type: 'string', required: true },
@@ -243,6 +233,17 @@ export default class ProductController extends Controller {
     ctx.status = 201;
     ctx.body = res;
     
+  }
+
+  @request('delete', '/product/batch/{id}')
+  @path({
+    id: { type: 'ObjectId', required: true, description: '批次ID'}
+  })
+  async deleteBatch() {
+    const { ctx } = this;
+    const { service } = ctx;
+    await service.product.removeBatch(ctx.params.id);
+    ctx.body = 'Deleted';
   }
 
 }
