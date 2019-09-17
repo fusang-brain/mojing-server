@@ -177,7 +177,8 @@ export default class ProductService extends Service {
 
     const info = await model.ProductionBatch.find({
       productID: id,
-      batchNumber: new RegExp(search, 'i')
+      batchNumber: new RegExp(search, 'i'),
+      deleted: false,
     }).populate('product');
 
     return info;
@@ -209,6 +210,17 @@ export default class ProductService extends Service {
   async createBatch(body: any) {
     const { model } = this.ctx;
     const res = await model.ProductionBatch.create(body);
+
+    return res;
+  }
+
+  async removeBatch(id: string) {
+    const { model } = this.ctx;
+    const res = await model.ProductionBatch.update({
+      _id: id,
+    }, {
+      deleted: true,
+    });
 
     return res;
   }

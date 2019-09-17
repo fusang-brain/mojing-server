@@ -10,6 +10,7 @@ export default class Employee extends Controller {
   @queryWithPager({
     search: {
       type: 'string',
+      required: false,
       description: '搜索',
     }
   })
