@@ -93,7 +93,9 @@ class SMSService {
     }
     
   }
-
+  /**
+   * 校验验证码
+   */
   async isValid(phoneNumber: string, code: string, kind?: string) {
     const _kind = kind || 'validate';
     const context = this.ctx;
@@ -123,7 +125,11 @@ class SMSService {
 
     return false;
   }
-
+  /**
+   * 发送验证码
+   * @param phoneNumber 
+   * @param kind 
+   */
   async sendValidateCode(phoneNumber: string, kind?: string) {
     const _kind = kind || 'validate';
     // const { context } = this.app;
