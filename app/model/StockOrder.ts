@@ -6,16 +6,16 @@ import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugi
 import { IUser } from './User';
 
 export interface IStockOrder extends BaseDocument {
-  orderNO?:string;
-  title?:string;
-  inStockTime?:Date;
-  provider?:string;
-  checker?:ObjectID;
-  stock?:string;
-  note?:string;
-  currentStep?:number;
-  items?:Array<IStockOrderItem>;
-  checkerObj?:IUser;
+  orderNO?: string;
+  title?: string;
+  inStockTime?: Date;
+  provider?: string;
+  checker?: ObjectID;
+  stock?: string;
+  note?: string;
+  currentStep?: number;
+  items?: Array<IStockOrderItem>;
+  checkerObj?: IUser;
 }
 
 export default (app: Application) => {

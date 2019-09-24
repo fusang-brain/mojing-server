@@ -109,6 +109,130 @@ export default class StockService extends Service {
     return createdItems;
   }
 
+  /**
+   * 修改入库单状态
+   * @param orderID 
+   */
+  async updateStockItemsState(orderID: string) {
+    const { model } = this.ctx;
+    const foundOrder = await model.StockOrder.findOne({
+      _id: orderID,
+    });
+
+    if (!foundOrder) {
+      this.ctx.throw('404', 'not found this instock order');
+    }
+
+    if (foundOrder.currentStep !== 2) {
+      foundOrder.currentStep = 2;
+      await foundOrder.save();
+    }
+  }
+
+  async updateOutStockItemsState(orderID: string) {
+    const { model } = this.ctx;
+    const foundOrder = await model.OutStockOrder.findOne({
+      _id: orderID,
+    });
+
+    if (!foundOrder) {
+      this.ctx.throw('404', 'not found this instock order');
+    }
+
+    if (foundOrder.currentStep !== 2) {
+      foundOrder.currentStep = 2;
+      await foundOrder.save();
+    }
+  }
+
+  async addStockItem(item: any, orderID: ObjectID) {
+    const { model } = this.ctx;
+    const foundOrder = await model.StockOrder.findOne({
+      _id: orderID,
+    });
+
+    if (!foundOrder) {
+      this.ctx.throw('404', 'not found this instock order');
+    }
+
+    const condition = {
+      orderID: item.orderID,
+      productID: item.productID,
+    }
+
+    if (item.productBatchID) {
+      condition['productBatchID'] = item.productBatchID;
+    }
+
+    const foundStockItem = await model.StockOrderItem.findOne(condition);
+    // 不存在该项目，直接添加
+    if (!foundStockItem) {
+      await model.StockOrderItem.create(item);
+      return;
+    }
+
+    foundStockItem.total = (item.total || 0) + foundStockItem.total;
+
+    await foundStockItem.save();
+    return;
+  }
+
+  async addOutStockItem(item: any, orderID: ObjectID) {
+    const { model } = this.ctx;
+    const foundOrder = await model.OutStockOrder.findOne({
+      _id: orderID,
+    });
+
+    if (!foundOrder) {
+      this.ctx.throw('404', 'not found this instock order');
+    }
+
+    const condition = {
+      orderID: item.orderID,
+      productID: item.productID,
+    }
+
+    if (item.productBatchID) {
+      condition['productBatchID'] = item.productBatchID;
+    }
+
+    const foundStockItem = await model.OutStockOrderItem.findOne(condition);
+    // 不存在该项目，直接添加
+    if (!foundStockItem) {
+      await model.OutStockOrderItem.create(item);
+      return;
+    }
+
+    foundStockItem.total = (item.total || 0) + foundStockItem.total;
+
+    await foundStockItem.save();
+    return;
+  }
+
+  async deleteStockItem(orderID: string, id: string) {
+    const { model } = this.ctx;
+    const foundOrder = await model.StockOrder.findOne({
+      _id: orderID,
+    });
+
+    if (!foundOrder) {
+      this.ctx.throw('404', 'not found this instock order');
+    }
+    await model.StockOrderItem.deleteOne({ _id: id });
+  }
+
+  async deleteOutStockItem(orderID: string, id: string) {
+    const { model } = this.ctx;
+    const foundOrder = await model.OutStockOrder.findOne({
+      _id: orderID,
+    });
+
+    if (!foundOrder) {
+      this.ctx.throw('404', 'not found this instock order');
+    }
+    await model.OutStockOrderItem.deleteOne({ _id: id });
+  }
+
   async findStockItemsByOrderID(query: Query) {
     const { ctx } = this;
     const { model } = ctx;

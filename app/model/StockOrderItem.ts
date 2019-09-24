@@ -6,15 +6,15 @@ import { Schema } from 'mongoose';
 import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugin';
 
 export interface IStockOrderItem extends BaseDocument {
-  orderID?:ObjectID;
-  productID?:ObjectID;
-  productBatchID?:ObjectID;
-  productInfo?:IProduct; // 产品信息
-  productBatchInfo?:IProductionBatch; // 批次信息
-  checkDate?:Date;
-  total?:number;
-  checkQualifiedCount?:number;
-  checkResult?:string;
+  orderID?: ObjectID;
+  productID?: ObjectID;
+  productBatchID?: ObjectID;
+  productInfo?: IProduct; // 产品信息
+  productBatchInfo?: IProductionBatch; // 批次信息
+  checkDate?: Date;
+  total?: number;
+  checkQualifiedCount?: number;
+  checkResult?: string;
 }
 
 export default (app: Application) => {

@@ -24,7 +24,7 @@ export default class StockController extends Controller {
     orderNO: 'string',
     title: { type: 'string', required: false },
     inStockTime: { type: 'dateTime', required: false },
-    provider: { type: 'string', required: true },
+    provider: { type: 'string', required: false },
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
@@ -59,7 +59,7 @@ export default class StockController extends Controller {
     orderNO: 'string',
     title: { type: 'string', required: false },
     outStockTime: { type: 'dateTime', required: false },
-    customer: { type: 'string', required: true },
+    customer: { type: 'string', required: false },
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
@@ -116,7 +116,7 @@ export default class StockController extends Controller {
   //   note: { type: 'string', required: false },
   //   enterprise: 'string',
   // })
-  @request('post', '/stock/updateOrder')
+  @request('put', '/stock/updateOrder')
   @summary('修改库存项目')
   @Tag
   @body({
@@ -124,7 +124,7 @@ export default class StockController extends Controller {
     orderNO: 'string',
     title: { type: 'string', required: false },
     inStockTime: { type: 'dateTime', required: false },
-    provider: { type: 'string', required: true },
+    provider: { type: 'string', required: false },
     checker: { type: 'ObjectId', required: true },
     stock: { type: 'string', required: true },
     note: { type: 'string', required: false },
@@ -228,24 +228,79 @@ export default class StockController extends Controller {
     ctx.body = createdItems;
   }
 
-  // @validateBody({
-  //   orderID: {
-  //     type: 'ObjectId',
-  //     required: true,
-  //   },
-  //   items: { 
-  //     type: 'array',
-  //     itemType: 'object',
-  //     rule: {
-  //       orderID: 'ObjectId',
-  //       productID: 'ObjectId',
-  //       productBatchID: {
-  //         type: 'ObjectId',
-  //         required: false,
-  //       },
-  //     },
-  //   }
-  // })
+  @request('post', '/stock/updateStockItemsState')
+  @summary('修改入库项状态')
+  @Tag
+  @body({
+    orderID: {
+      type: 'ObjectId',
+      required: true,
+    },
+  })
+  async updateStockItemsState() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { orderID } = ctx.request.body;
+    await service.stock.updateStockItemsState(orderID);
+
+    ctx.status = 201;
+    ctx.body = {};
+  }
+
+  @request('post', '/stock/addStockItem')
+  @summary('添加库存项目')
+  @Tag
+  @body({
+    orderID: {
+      type: 'ObjectId',
+      required: true,
+    },
+    item: { 
+      type: 'object',
+      rule: {
+        orderID: 'ObjectId',
+        productID: 'ObjectId',
+        productBatchID: {
+          type: 'ObjectId',
+          required: false,
+        },
+      },
+    }
+  })
+  async addStockItem() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { item, orderID } = ctx.request.body;
+    await service.stock.addStockItem(item, orderID);
+
+    ctx.status = 201;
+    ctx.body = 'Successed';
+  }
+
+  @request('delete', '/stock/deleteStockItem')
+  @summary('删除库存项')
+  @Tag
+  @body({
+    orderID: {
+      type: 'ObjectId',
+      required: true,
+    },
+    id: {
+      type: 'ObjectId',
+      required: true,
+    },
+  })
+  async deleteStockItem() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { id, orderID } = ctx.request.body;
+    await service.stock.deleteStockItem(orderID, id);
+
+    ctx.state = 200;
+    ctx.body = 'Successed';
+  }
+
+  
   @request('post', '/stock/setOutStockItems')
   @summary('设置出库项目')
   @Tag
@@ -277,12 +332,78 @@ export default class StockController extends Controller {
     ctx.body = createdItems;
   }
 
-  // @validateQuery({
-  //   orderID: {
-  //     type: 'ObjectId',
-  //     required: false,
-  //   },
-  // })
+  @request('post', '/stock/updateOutStockItemsState')
+  @summary('修改入库项状态')
+  @Tag
+  @body({
+    orderID: {
+      type: 'ObjectId',
+      required: true,
+    },
+  })
+  async updateOutStockItemsState() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { orderID } = ctx.request.body;
+    await service.stock.updateOutStockItemsState(orderID);
+
+    ctx.status = 201;
+    ctx.body = {};
+  }
+
+  @request('post', '/stock/addOutStockItem')
+  @summary('添加库存项目')
+  @Tag
+  @body({
+    // orderID: {
+    //   type: 'ObjectId',
+    //   required: true,
+    // },
+    item: { 
+      type: 'object',
+      rule: {
+        orderID: 'ObjectId',
+        productID: 'ObjectId',
+        productBatchID: {
+          type: 'ObjectId',
+          required: false,
+        },
+      },
+    }
+  })
+  async addOutStockItem() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { item } = ctx.request.body;
+    await service.stock.addOutStockItem(item, item.orderID);
+
+    ctx.status = 201;
+    ctx.body = 'Successed';
+  }
+
+  @request('delete', '/stock/deleteOutStockItem')
+  @summary('删除库存项')
+  @Tag
+  @body({
+    orderID: {
+      type: 'ObjectId',
+      required: true,
+    },
+    id: {
+      type: 'ObjectId',
+      required: true,
+    },
+  })
+  async deleteOutStockItem() {
+    const { ctx } = this;
+    const { service } = ctx;
+    const { id, orderID } = ctx.request.body;
+    await service.stock.deleteOutStockItem(orderID, id);
+
+    ctx.state = 200;
+    ctx.body = 'Successed';
+  }
+
   @request('get', '/stock/findOrderItems')
   @summary('查询订单项')
   @Tag
@@ -339,7 +460,7 @@ export default class StockController extends Controller {
   //     required: true,
   //   },
   // })
-  @request('post', '/stock/checkOneOrderItem')
+  @request('put', '/stock/checkOneOrderItem')
   @summary('验收一个订单项')
   @Tag
   @body({
@@ -359,12 +480,13 @@ export default class StockController extends Controller {
   async checkOneItem() {
     const { ctx } = this;
     const { service } = ctx;
+    console.log('check one item ====');
     await service.stock.checkOneItem(ctx.request.body);
 
     ctx.body = ctx.request.body;
   }
 
-  @request('post', '/stock/checkOneOutStockOrderItem')
+  @request('put', '/stock/checkOneOutStockOrderItem')
   @summary('验收一个出库订单项')
   @Tag
   @body({

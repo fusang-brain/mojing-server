@@ -38,7 +38,7 @@ export default class SaleController extends Controller {
   @request('get', '/sale')
   @summary('获取销售记录列表')
   @query({
-    search: { type: 'string', required: true, description: '搜索' }
+    search: { type: 'string', required: false, description: '搜索' }
   })
   async index() {
     const { ctx } = this;

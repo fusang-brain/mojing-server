@@ -150,11 +150,20 @@ export default class ProductService extends Service {
     const { model } = this.ctx;
     const { enterprise, skip = 0, count = 15 } = query;
     const condition: IDict = { enterprise, deleted: false };
+
+    if (query.search) {
+      condition['$or'] = [
+        {
+          name: new RegExp(query.search, 'i'),
+        },
+        {
+          code: new RegExp(query.search, 'i'),
+        }
+      ]
+    }
+
     const list = await model.Product.find(condition).skip(+skip).limit(+count);
-    const total = await model.Product.count({
-      enterprise,
-      deleted: false 
-    })
+    const total = await model.Product.count(condition)
     return {
       list,
       total,
