@@ -3,7 +3,7 @@ import { ShopCartDTO, PutShopCartDTO } from '../dto/ShopCart';
 import lodash from 'lodash';
 
 
-export default class shopCart extends Service {
+export default class ShopCart extends Service {
   /**
    * 添加商品至购物车
    */

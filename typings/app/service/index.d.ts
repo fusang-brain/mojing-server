@@ -1,9 +1,10 @@
-// This file is created by egg-ts-helper@1.25.2
+// This file is created by egg-ts-helper@1.25.6
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
 import ExportAccess from '../../../app/service/Access';
 import ExportAccessGroup from '../../../app/service/AccessGroup';
+import ExportCategory from '../../../app/service/Category';
 import ExportCustomer from '../../../app/service/Customer';
 import ExportEmployee from '../../../app/service/Employee';
 import ExportEnterprise from '../../../app/service/Enterprise';
@@ -25,6 +26,7 @@ declare module 'egg' {
   interface IService {
     access: ExportAccess;
     accessGroup: ExportAccessGroup;
+    category: ExportCategory;
     customer: ExportCustomer;
     employee: ExportEmployee;
     enterprise: ExportEnterprise;

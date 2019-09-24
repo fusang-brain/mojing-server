@@ -3,7 +3,7 @@ import { OrderDTO } from '../dto/order';
 import { genOrderNO } from '../utils/tools';
 import { getMainConnection } from '../common/query.model';
 
-export default class order extends Service {
+export default class Order extends Service {
     /**
      * 生成订单
      */

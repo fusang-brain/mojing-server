@@ -1,7 +1,7 @@
 import { Service } from 'egg';
 import { IDcardDTO } from '../dto/member';
 
-export default class iDcard extends Service{
+export default class IDcard extends Service{
 
     /**
      * 绑定身份证

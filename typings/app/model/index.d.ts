@@ -1,4 +1,4 @@
-// This file is created by egg-ts-helper@1.25.2
+// This file is created by egg-ts-helper@1.25.6
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
@@ -6,6 +6,7 @@ import ExportAccess from '../../../app/model/Access';
 import ExportAccessGroup from '../../../app/model/AccessGroup';
 import ExportAccessGroupRelate from '../../../app/model/AccessGroupRelate';
 import ExportAuthorization from '../../../app/model/Authorization';
+import ExportCategory from '../../../app/model/Category';
 import ExportCryptogram from '../../../app/model/Cryptogram';
 import ExportCustomer from '../../../app/model/Customer';
 import ExportEmployee from '../../../app/model/Employee';
@@ -24,8 +25,8 @@ import ExportOrganization from '../../../app/model/Organization';
 import ExportOutStockOrder from '../../../app/model/OutStockOrder';
 import ExportOutStockOrderItem from '../../../app/model/OutStockOrderItem';
 import ExportProduct from '../../../app/model/Product';
-import ExportProductStock from '../../../app/model/ProductStock';
 import ExportProductionBatch from '../../../app/model/ProductionBatch';
+import ExportProductStock from '../../../app/model/ProductStock';
 import ExportProvider from '../../../app/model/Provider';
 import ExportSale from '../../../app/model/Sale';
 import ExportShopCart from '../../../app/model/ShopCart';
@@ -39,6 +40,7 @@ declare module 'egg' {
     AccessGroup: ReturnType<typeof ExportAccessGroup>;
     AccessGroupRelate: ReturnType<typeof ExportAccessGroupRelate>;
     Authorization: ReturnType<typeof ExportAuthorization>;
+    Category: ReturnType<typeof ExportCategory>;
     Cryptogram: ReturnType<typeof ExportCryptogram>;
     Customer: ReturnType<typeof ExportCustomer>;
     Employee: ReturnType<typeof ExportEmployee>;
@@ -57,8 +59,8 @@ declare module 'egg' {
     OutStockOrder: ReturnType<typeof ExportOutStockOrder>;
     OutStockOrderItem: ReturnType<typeof ExportOutStockOrderItem>;
     Product: ReturnType<typeof ExportProduct>;
-    ProductStock: ReturnType<typeof ExportProductStock>;
     ProductionBatch: ReturnType<typeof ExportProductionBatch>;
+    ProductStock: ReturnType<typeof ExportProductStock>;
     Provider: ReturnType<typeof ExportProvider>;
     Sale: ReturnType<typeof ExportSale>;
     ShopCart: ReturnType<typeof ExportShopCart>;
