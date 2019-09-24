@@ -40,6 +40,7 @@ export default (app: Application) => {
     introducer: { type: Schema.Types.String, required: false },
     note: { type: Schema.Types.String, required: false },
     integral: { type: Schema.Types.Number, required: false },
+    idCard: { type: Schema.Types.String, required: false },
 
     lastShopDate: { type: Schema.Types.String, required: false },
     lastOptometryDate: { type: Schema.Types.String, required: false },

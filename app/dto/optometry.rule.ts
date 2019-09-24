@@ -3,6 +3,7 @@ import { RuleOptions } from '../common/rules';
 export const CreateOptometryRules: RuleOptions = {
   // enterprise: { type: 'string', required: true },
   customerID: { type: 'ObjectId', required: true },
+  idCard: { type: 'string', required: true },
   optometryNote: { type: 'string', required: false },
 }
 

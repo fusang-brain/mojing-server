@@ -16,6 +16,7 @@ export const CreateCustomerRules: RuleOptions = {
   lastConsumotionAmount: { type: 'number', required: false },
   consumptionTotalAmount: { type: 'number', required: false },
   consumptionCount: { type: 'number', required: false },
+  idCard: { type: 'string', required: false },
   // contacts: { type: 'string', required: false },
   
   // postcode: { type: 'string', required: false },

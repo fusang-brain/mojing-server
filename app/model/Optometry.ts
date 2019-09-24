@@ -3,36 +3,36 @@ import { Schema } from 'mongoose';
 import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugin';
 import { Application } from 'egg';
 
-type OptometryItem = {
-  left?:string;
-  right?:string;
+interface OptometryItem {
+  left?: string;
+  right?: string;
 }
 
-type PDItem = {
-  left?:string;
-  right?:string;
+interface PDItem {
+  left?: string;
+  right?: string;
 }
 
 export interface Optometry extends BaseDocument {
-  SPH?:OptometryItem; // 球镜
-  CYL?:OptometryItem; // 柱镜
-  axial?:OptometryItem; // 轴向
-  PD?:PDItem; // 瞳距
-  totalPD?:string; // 总瞳距
-  CVA?:OptometryItem; // 矫正视力
-  PH?:string; // 瞳高
-  DominantEye?:string; // 主视眼
+  SPH?: OptometryItem; // 球镜
+  CYL?: OptometryItem; // 柱镜
+  axial?: OptometryItem; // 轴向
+  PD?: PDItem; // 瞳距
+  totalPD?: string; // 总瞳距
+  CVA?: OptometryItem; // 矫正视力
+  PH?: string; // 瞳高
+  DominantEye?: string; // 主视眼
   BasicVision?: OptometryItem; // 裸眼视力
   NearEye?: string; // 近用眼位
   FarEye?: string; // 远用眼位
-  NRA?:string;
-  PRA?:string;
-  AC_A?:string; // AC/A
+  NRA?: string;
+  PRA?: string;
+  AC_A?: string; // AC/A
   SimultaneousVision?: string; // 同时视
-  FusionFunction?:string; // 融合视
-  StereoscopicVision?:string //  立体视
-  ADD?:OptometryItem; // 下加光
-  optometryNote?:string; // 备注
+  FusionFunction?: string; // 融合视
+  StereoscopicVision?: string //  立体视
+  ADD?: OptometryItem; // 下加光
+  optometryNote?: string; // 备注
   customerID?: string; // 关联的客户ID
   optometryPerson?: string; // 验光师
   optometryDate?: Date; // 验光时间
@@ -85,6 +85,7 @@ export default (app: Application) => {
     customerID: { type: Schema.Types.ObjectId, required: false },
     optometryPerson: { type: Schema.Types.ObjectId, required: false },
     optometryDate: { type: Schema.Types.Date, required: false },
+    idCard: { type: Schema.Types.String, required: false },
   }, {
     toJSON: {
       virtuals: true,
