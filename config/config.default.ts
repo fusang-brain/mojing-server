@@ -72,6 +72,12 @@ export default (appInfo: EggAppInfo): MeYupConfig => ({
       '/sms/validateCode/(.*)',
       '/docs',
       '/docs/(.*)',
+      '/app/member/',
+      '/app/verificationcode/(.*)',
+      '/app/verificationcode',
+      '/app/login',
+      '/app/login/verificationcode/(.*)',
+      '/app/login/verificationcode',
     ]
   },
   alicloud: {

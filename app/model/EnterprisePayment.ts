@@ -12,8 +12,8 @@ export type PaymentState = ('wait'|'doing'|'paid') // wait: 待支付 doing: 进
  */
 export interface IEnterprisePayment extends SimpleDocument {
   method?: PaymentMethod;
-  licenseRecord?: (string|IEnterpriseLicenseRecord);
-  state?: PaymentState;
+  licenseRecord?: (string|IEnterpriseLicenseRecord);  //授权记录
+  state?: PaymentState; //状态
 }
 
 export default (app: Application) => {
