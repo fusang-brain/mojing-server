@@ -11,3 +11,9 @@ export interface MemberDTO {
     password: string;
     validateCode:string;
   }
+
+  export interface IDcardDTO{
+    member?:ObjectID;
+    IDcard?:string;
+    name?:string;
+  }

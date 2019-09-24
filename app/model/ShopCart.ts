@@ -16,19 +16,19 @@ export interface IShopCart extends BaseDocument{
     memberId?:ObjectID;     //会员ID
     productList?:Products[];    //商品列表
 
-}
+}   
 
 export default (app: Application) => {
-const mongoose = app.mongoose;
-  
-const ShopCartSchema = new mongoose.Schema({
-  memberId: { type: Schema.Types.ObjectId, required: true },
-  productList:[{
-      productId:{ type: Schema.Types.ObjectId,required:true},
-      count:{ type: Schema.Types.Number, required:true}
-  }]
-});
+    const mongoose = app.mongoose;
+    
+    const ShopCartSchema = new mongoose.Schema({
+    memberId: { type: Schema.Types.ObjectId, required: true },
+    productList:[{
+        productId:{ type: Schema.Types.ObjectId, required:true, ref: 'Product'},
+        count:{ type: Schema.Types.Number, required:true}
+    }]
+    });
 
-ShopCartSchema.plugin(defaultFieldsPlugin);
-return mongoose.model<IShopCart>('ShopCart', ShopCartSchema);
+    ShopCartSchema.plugin(defaultFieldsPlugin);
+    return mongoose.model<IShopCart>('ShopCart', ShopCartSchema);
 }

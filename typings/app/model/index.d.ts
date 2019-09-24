@@ -15,9 +15,11 @@ import ExportEnterpriseLicenseRecord from '../../../app/model/EnterpriseLicenseR
 import ExportEnterprisePayment from '../../../app/model/EnterprisePayment';
 import ExportFinance from '../../../app/model/Finance';
 import ExportFinanceCategory from '../../../app/model/FinanceCategory';
+import ExportIDcard from '../../../app/model/IDcard';
 import ExportLog from '../../../app/model/Log';
 import ExportMember from '../../../app/model/Member';
 import ExportOptometry from '../../../app/model/Optometry';
+import ExportOrder from '../../../app/model/Order';
 import ExportOrganization from '../../../app/model/Organization';
 import ExportOutStockOrder from '../../../app/model/OutStockOrder';
 import ExportOutStockOrderItem from '../../../app/model/OutStockOrderItem';
@@ -46,9 +48,11 @@ declare module 'egg' {
     EnterprisePayment: ReturnType<typeof ExportEnterprisePayment>;
     Finance: ReturnType<typeof ExportFinance>;
     FinanceCategory: ReturnType<typeof ExportFinanceCategory>;
+    IDcard: ReturnType<typeof ExportIDcard>;
     Log: ReturnType<typeof ExportLog>;
     Member: ReturnType<typeof ExportMember>;
     Optometry: ReturnType<typeof ExportOptometry>;
+    Order: ReturnType<typeof ExportOrder>;
     Organization: ReturnType<typeof ExportOrganization>;
     OutStockOrder: ReturnType<typeof ExportOutStockOrder>;
     OutStockOrderItem: ReturnType<typeof ExportOutStockOrderItem>;

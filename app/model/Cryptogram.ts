@@ -18,7 +18,7 @@ export default (app: Application) => {
       provider: { type: Schema.Types.String, required: true },
       provider_id: { type: Schema.Types.String, required: false },
       password: Schema.Types.String,
-      memberId: { type: Schema.Types.ObjectId, required: true },
+      memberId: { type: Schema.Types.ObjectId, required: true, ref: 'Member' },
     });
   
     ICryptogramSchema.plugin(defaultFieldsPlugin);

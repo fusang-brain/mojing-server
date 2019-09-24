@@ -11,7 +11,7 @@ export default class shopCart extends Service {
     const { ctx } = this;
     const { model } = ctx;
     //先根据会员ID查询
-    const shopCart = await model.ShopCart.findOne({ memberId: shopCartDTO.memberId })
+    const shopCart = await model.ShopCart.findOne({ memberId: shopCartDTO.memberId });
     if (!shopCart) {
       //若不存在，添加购物车对象
       const shopcartBo =  new model.ShopCart({
@@ -51,7 +51,12 @@ export default class shopCart extends Service {
   async findCartByMemberId(memberId:ObjectID) {
     const { ctx } = this;
     const { model } = ctx;
-    const shopCart =  await model.ShopCart.findOne({'memberId': memberId})
+    const shopCart =  await model.ShopCart.findOne({'memberId': memberId}).populate({
+      path: 'productList.productId',
+      populate: {
+        path: 'enterpriseInfo',
+      }
+    })
     return shopCart;   
   }
   /**
