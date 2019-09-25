@@ -139,6 +139,8 @@ export default class ProductService extends Service {
     }
     delete query.search;
 
+  
+    //model对象、查询条件、mdl调用对象
     const resp = await pagedResultBuild<IProduct>(model.Product, query, mdl => {
       return mdl.populate('enterpriseInfo');
     });

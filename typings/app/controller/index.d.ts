@@ -19,6 +19,7 @@ import ExportProduct from '../../../app/controller/Product';
 import ExportProvider from '../../../app/controller/Provider';
 import ExportRelease from '../../../app/controller/Release';
 import ExportSale from '../../../app/controller/Sale';
+import ExportSearch from '../../../app/controller/Search';
 import ExportShopCart from '../../../app/controller/ShopCart';
 import ExportSms from '../../../app/controller/Sms';
 import ExportStock from '../../../app/controller/Stock';
@@ -43,6 +44,7 @@ declare module 'egg' {
     provider: ExportProvider;
     release: ExportRelease;
     sale: ExportSale;
+    search: ExportSearch;
     shopCart: ExportShopCart;
     sms: ExportSms;
     stock: ExportStock;

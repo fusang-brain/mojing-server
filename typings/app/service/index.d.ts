@@ -17,6 +17,7 @@ import ExportOrder from '../../../app/service/Order';
 import ExportProduct from '../../../app/service/Product';
 import ExportProvider from '../../../app/service/Provider';
 import ExportSale from '../../../app/service/Sale';
+import ExportSearch from '../../../app/service/Search';
 import ExportShopCart from '../../../app/service/ShopCart';
 import ExportStock from '../../../app/service/Stock';
 import ExportTest from '../../../app/service/Test';
@@ -39,6 +40,7 @@ declare module 'egg' {
     product: ExportProduct;
     provider: ExportProvider;
     sale: ExportSale;
+    search: ExportSearch;
     shopCart: ExportShopCart;
     stock: ExportStock;
     test: ExportTest;
