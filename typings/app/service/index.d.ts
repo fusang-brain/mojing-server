@@ -1,9 +1,10 @@
-// This file is created by egg-ts-helper@1.25.2
+// This file is created by egg-ts-helper@1.25.6
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
 import ExportAccess from '../../../app/service/Access';
 import ExportAccessGroup from '../../../app/service/AccessGroup';
+import ExportCategory from '../../../app/service/Category';
 import ExportCustomer from '../../../app/service/Customer';
 import ExportEmployee from '../../../app/service/Employee';
 import ExportEnterprise from '../../../app/service/Enterprise';
@@ -16,6 +17,7 @@ import ExportOrder from '../../../app/service/Order';
 import ExportProduct from '../../../app/service/Product';
 import ExportProvider from '../../../app/service/Provider';
 import ExportSale from '../../../app/service/Sale';
+import ExportSearch from '../../../app/service/Search';
 import ExportShopCart from '../../../app/service/ShopCart';
 import ExportStock from '../../../app/service/Stock';
 import ExportTest from '../../../app/service/Test';
@@ -25,6 +27,7 @@ declare module 'egg' {
   interface IService {
     access: ExportAccess;
     accessGroup: ExportAccessGroup;
+    category: ExportCategory;
     customer: ExportCustomer;
     employee: ExportEmployee;
     enterprise: ExportEnterprise;
@@ -37,6 +40,7 @@ declare module 'egg' {
     product: ExportProduct;
     provider: ExportProvider;
     sale: ExportSale;
+    search: ExportSearch;
     shopCart: ExportShopCart;
     stock: ExportStock;
     test: ExportTest;

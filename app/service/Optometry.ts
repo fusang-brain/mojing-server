@@ -57,4 +57,10 @@ export default class Customer extends Service {
 
     return await model.Optometry.findById(id);
   }
+
+  async findListByIDcard(iDcard: string) {
+    const { model } = this.ctx;
+    console.log(iDcard);
+    return await model.Optometry.find({ idCard: iDcard }).sort({ optometryDate: -1 });
+  }
 }

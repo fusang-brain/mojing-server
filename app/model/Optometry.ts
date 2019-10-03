@@ -36,6 +36,7 @@ export interface Optometry extends BaseDocument {
   customerID?: string; // 关联的客户ID
   optometryPerson?: string; // 验光师
   optometryDate?: Date; // 验光时间
+  idCard?:string;   //身份证
 }
 
 export default (app: Application) => {

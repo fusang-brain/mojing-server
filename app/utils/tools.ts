@@ -19,5 +19,10 @@ export function String2PinYin(str: string): string {
 
 export function genOrderNO() {
   const t = moment();
-  return lodash.uniqueId(`${t.format('YYYYMMDDHHmmss')}`); 
+  
+  const time = t.format('YYYYMMDDHHmmss');
+
+  const body = Number(time) * 100000 + Number(lodash.uniqueId());
+
+  return body;
 }
