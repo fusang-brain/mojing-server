@@ -5,6 +5,7 @@ import { defaultFieldsPlugin, withEnterprisePlugin } from '../common/mongo.plugi
 import { IProductionBatch } from './ProductionBatch';
 import { IEnterprise } from './Enterprise';
 import { RuleOptions } from '../common/rules';
+import { IFile } from './File';
 
 export const CommonProductRules: RuleOptions = {
   kind: 'string',
@@ -58,6 +59,10 @@ export const CommonProductRules: RuleOptions = {
     type: 'string',
     required: false,
   },
+  pictures:{
+    type :'ObjectId',
+    required : false,
+  }
 };
 
 export const EyeglassProductRules: RuleOptions = {
@@ -108,6 +113,10 @@ export const EyeglassProductRules: RuleOptions = {
     type: 'string',
     required: false,
   },
+  pictures:{
+    type :'ObjectId',
+    required : false,
+  }
 };
 
 export const ContactLensesRules: RuleOptions = {
@@ -143,6 +152,10 @@ export const ContactLensesRules: RuleOptions = {
       expirationDate: 'string',
     },
   },
+  pictures:{
+    type :'ObjectId',
+    required : false,
+  }
 }
 
 export const ServicesRules: RuleOptions = {
@@ -161,7 +174,12 @@ export const ServicesRules: RuleOptions = {
     type: 'string',
     required: false,
   },
+  pictures:{
+    type :'ObjectId',
+    required : false,
+  }
 }
+
 
 export interface IProduct extends BaseDocument {
   kind?: number; // 0: 普通商品 1: 光学镜片 2: 隐形眼镜 3: 服务项目
@@ -181,6 +199,9 @@ export interface IProduct extends BaseDocument {
   frameLegLength?: string; // 镜腿长
   frameWeight?: string; // 镜架重量
   diopter?: string; // 屈光度
+
+  //图片
+  pictures?: (ObjectID|IFile)[];
 
   // 镜片相关
   sphere?: string; // 球镜
@@ -216,6 +237,8 @@ export default (app: Application) => {
     frameLegLength: Schema.Types.String,
     frameWeight: Schema.Types.String,
     diopter: Schema.Types.String,
+
+    pictures:[{ type: Schema.Types.ObjectId, ref: 'File' }],
 
     sphere: Schema.Types.String,
     lenticularGrating: Schema.Types.String,

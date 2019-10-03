@@ -3,7 +3,7 @@ import path from 'path';
 import { fs, pump, hash } from '@fsba/bigface';
 import moment from 'moment';
 import { genValidateCode } from '../utils/mbcrypt';
-import { request, summary, tag, body } from '@fsba/egg-wrapper';
+import { request, summary, tag } from '@fsba/egg-wrapper';
 
 const isDir = async (path: string) => {
   try {
@@ -25,14 +25,7 @@ export default class FileController extends Controller {
 
   @request('post', '/file/upload')
   @summary('上传文件, 通过multipart方式批量上传, 返回值中的 「 lookpath 」 是资源显示地址')
-  @tag('文件模块')
-  @body({
-    files: {
-      type: 'array',
-      description: '文件数组，子项是二进制数据',
-      itemType: 'string',
-    },
-  })
+  @tag('文件模块')  
   async upload() {
     const { ctx } = this;
     const parts = ctx.multipart();
