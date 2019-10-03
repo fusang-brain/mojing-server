@@ -13,6 +13,7 @@ import ExportEmployeeAccess from '../../../app/model/EmployeeAccess';
 import ExportEnterprise from '../../../app/model/Enterprise';
 import ExportEnterpriseLicenseRecord from '../../../app/model/EnterpriseLicenseRecord';
 import ExportEnterprisePayment from '../../../app/model/EnterprisePayment';
+import ExportFile from '../../../app/model/File';
 import ExportFinance from '../../../app/model/Finance';
 import ExportFinanceCategory from '../../../app/model/FinanceCategory';
 import ExportIDcard from '../../../app/model/IDcard';
@@ -46,6 +47,7 @@ declare module 'egg' {
     Enterprise: ReturnType<typeof ExportEnterprise>;
     EnterpriseLicenseRecord: ReturnType<typeof ExportEnterpriseLicenseRecord>;
     EnterprisePayment: ReturnType<typeof ExportEnterprisePayment>;
+    File: ReturnType<typeof ExportFile>;
     Finance: ReturnType<typeof ExportFinance>;
     FinanceCategory: ReturnType<typeof ExportFinanceCategory>;
     IDcard: ReturnType<typeof ExportIDcard>;

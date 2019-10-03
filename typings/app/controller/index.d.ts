@@ -7,6 +7,7 @@ import ExportAccessGroup from '../../../app/controller/AccessGroup';
 import ExportCustomer from '../../../app/controller/Customer';
 import ExportEmployee from '../../../app/controller/Employee';
 import ExportEnterprise from '../../../app/controller/Enterprise';
+import ExportFile from '../../../app/controller/File';
 import ExportFinance from '../../../app/controller/Finance';
 import ExportFinanceCategory from '../../../app/controller/FinanceCategory';
 import ExportIDcard from '../../../app/controller/IDcard';
@@ -30,6 +31,7 @@ declare module 'egg' {
     customer: ExportCustomer;
     employee: ExportEmployee;
     enterprise: ExportEnterprise;
+    file: ExportFile;
     finance: ExportFinance;
     financeCategory: ExportFinanceCategory;
     iDcard: ExportIDcard;
