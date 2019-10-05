@@ -60,8 +60,9 @@ export const CommonProductRules: RuleOptions = {
     required: false,
   },
   pictures:{
-    type :'ObjectId',
-    required : false,
+    type: 'array',
+    itemType: 'ObjectId',
+    required: false,
   }
 };
 
@@ -114,8 +115,9 @@ export const EyeglassProductRules: RuleOptions = {
     required: false,
   },
   pictures:{
-    type :'ObjectId',
-    required : false,
+    type: 'array',
+    itemType: 'ObjectId',
+    required: false,
   }
 };
 
@@ -153,8 +155,9 @@ export const ContactLensesRules: RuleOptions = {
     },
   },
   pictures:{
-    type :'ObjectId',
-    required : false,
+    type: 'array',
+    itemType: 'ObjectId',
+    required: false,
   }
 }
 
@@ -175,8 +178,9 @@ export const ServicesRules: RuleOptions = {
     required: false,
   },
   pictures:{
-    type :'ObjectId',
-    required : false,
+    type: 'array',
+    itemType: 'ObjectId',
+    required: false,
   }
 }
 
