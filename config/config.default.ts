@@ -4,8 +4,6 @@ import { MeYupConfig } from '.';
 
 const packageConfig = require('../package');
 
-
-
 export default (appInfo: EggAppInfo): MeYupConfig => ({
   
   // override config from framework / plugin
@@ -78,6 +76,7 @@ export default (appInfo: EggAppInfo): MeYupConfig => ({
       '/app/login',
       '/app/login/verificationcode/(.*)',
       '/app/login/verificationcode',
+      '/file/upload',
     ]
   },
   alicloud: {
