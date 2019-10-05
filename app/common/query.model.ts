@@ -178,6 +178,9 @@ export function getPagerParams(query: Query) {
   return lodash.pick(query, ['page', 'pageSize', 'order', 'sort']);
 }
 
+// (page - 1) * pageSize = skip
+// page * pageSize - pageSize = skip
+// page = (skip + pageSize) / pageSize
 export function pagedQuery(documentQuery: DocumentQuery<any, any>, queries: Query) {
   documentQuery = documentQuery.skip((queries.page - 1) * queries.pageSize).limit(+queries.pageSize);
   
