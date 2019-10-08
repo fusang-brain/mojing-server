@@ -15,6 +15,7 @@ export interface ICustomer extends BaseDocument {
   introducer?: string; // 介绍人
   note?: string; // 备注
   integral?: number; // 积分
+  idCard?:string; //身份证
 
   lastShopDate?: Date;
   lastOptometryDate?: Date;
