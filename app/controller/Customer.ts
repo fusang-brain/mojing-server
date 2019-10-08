@@ -35,6 +35,7 @@ export default class CustomerController extends Controller {
     ctx.status = 201;
   }
 
+
   @request('put', '/customer/{id}')
   @Tag
   @path({

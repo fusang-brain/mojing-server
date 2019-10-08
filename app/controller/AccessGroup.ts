@@ -36,7 +36,7 @@ export default class AccessGroupController extends Controller {
   }
 
   @request('put', '/accessGroup')
-  @summary('修改商品信息')
+  @summary('修改权限信息')
   @body({
     name: {
       type: 'string',
@@ -61,8 +61,8 @@ export default class AccessGroupController extends Controller {
     ctx.status = 200;
   }
 
-  @request('delete', '/accessGroup')
-  @summary('删除商品')
+  @request('delete', '/accessGroup/{id}')
+  @summary('删除权限')
   @path({
     id: {
       type: 'ObjectId',
