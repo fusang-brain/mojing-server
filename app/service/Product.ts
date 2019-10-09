@@ -25,6 +25,7 @@ export interface ICommonProduct {
   frameLegLength?: number; // 镜腿长
   frameWeight?: number; // 镜架重量
   diopter?: number; // 屈光度
+  pictures?: string[]; //图片数组
 }
 
 export interface IEyeglass {
@@ -44,6 +45,7 @@ export interface IEyeglass {
   axialView?: string; // 轴位
   refractiveIndex?: string; // 折射率
   texture?: string; // 材质
+  pictures?: string[]; //图片数组
 }
 
 export interface IContactLenses {
@@ -59,6 +61,7 @@ export interface IContactLenses {
   brand?: string; // 品牌
   productionBatch?: Array<IProductionBatch>;
   unit?: string; // 计量单位
+  pictures?: string[]; //图片数组
 }
 
 export interface IServices {
@@ -71,6 +74,7 @@ export interface IServices {
   unitPurchasePrice: number; // 单位进价
   manufacturers?: string; // 厂家
   provider?: string; // 供应商
+  pictures?: string[]; //图片数组
 }
 
 export default class ProductService extends Service {
@@ -79,6 +83,7 @@ export default class ProductService extends Service {
    * @param body
    */
   async createCommonProduct(body: ICommonProduct) {
+    
     const { ctx } = this;
     body.enterprise = ctx.enterprise;
     return await ctx.model.Product.create(body);

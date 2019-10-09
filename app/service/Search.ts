@@ -14,7 +14,7 @@ export default class Search extends Service {
             query['category'] = category;
         }
         const products =  await pagedResultBuild<IProduct>(model.Product,query,mol => {
-            return mol.populate('enterpriseInfo');
+            return mol.populate('enterpriseInfo').populate('pictures');
         });
         products.list.forEach((item)=>{
             item['unitPurchasePrice'] = null

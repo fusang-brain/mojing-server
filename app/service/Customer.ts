@@ -6,6 +6,10 @@ export default class Customer extends Service {
   async create(body: IDict) {
     const { model } = this.ctx;
     body.enterprise = this.ctx.enterprise;
+    const customer =  await model.Customer.findOne({idCard:body['idCard']});
+    if(customer){
+      return false;
+    }
     const createdCustomer = await model.Customer.create(body);
 
     return createdCustomer;

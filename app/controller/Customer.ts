@@ -2,6 +2,7 @@ import { Controller } from 'egg';
 // import { validateBody, validateParams } from '../common/query.model';
 import { CreateCustomerRules, UpdateCustomerRules } from '../dto/customer.rule';
 import { request, queryWithPager, summary, tag, body, path } from '@fsba/egg-wrapper';
+import { ActionError } from '../exception';
 
 const Tag = tag('会员模块');
 
@@ -29,11 +30,20 @@ export default class CustomerController extends Controller {
     const { service } = ctx;
     const createdRes = await service.customer.create(ctx.request.body);
 
-    ctx.body = {
-      customer: createdRes,
-    };
-    ctx.status = 201;
+    if(createdRes){
+      ctx.body = {
+        customer: createdRes,
+      };
+      ctx.status = 201;
+    } else {
+
+      throw new ActionError('身份证已存在');
+
+      // ctx.status = 201;
+    }
+   
   }
+
 
   @request('put', '/customer/{id}')
   @Tag
