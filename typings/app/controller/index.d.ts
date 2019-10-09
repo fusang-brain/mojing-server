@@ -1,4 +1,4 @@
-// This file is created by egg-ts-helper@1.25.6
+// This file is created by egg-ts-helper@1.25.2
 // Do not modify this file!!!!!!!!!
 
 import 'egg';
@@ -11,7 +11,6 @@ import ExportEnterprise from '../../../app/controller/Enterprise';
 import ExportFile from '../../../app/controller/File';
 import ExportFinance from '../../../app/controller/Finance';
 import ExportFinanceCategory from '../../../app/controller/FinanceCategory';
-import ExportHome from '../../../app/controller/home';
 import ExportIDcard from '../../../app/controller/IDcard';
 import ExportMember from '../../../app/controller/Member';
 import ExportOptometry from '../../../app/controller/Optometry';
@@ -25,6 +24,7 @@ import ExportShopCart from '../../../app/controller/ShopCart';
 import ExportSms from '../../../app/controller/Sms';
 import ExportStock from '../../../app/controller/Stock';
 import ExportUser from '../../../app/controller/User';
+import ExportHome from '../../../app/controller/home';
 
 declare module 'egg' {
   interface IController {
@@ -37,7 +37,6 @@ declare module 'egg' {
     file: ExportFile;
     finance: ExportFinance;
     financeCategory: ExportFinanceCategory;
-    home: ExportHome;
     iDcard: ExportIDcard;
     member: ExportMember;
     optometry: ExportOptometry;
@@ -51,5 +50,6 @@ declare module 'egg' {
     sms: ExportSms;
     stock: ExportStock;
     user: ExportUser;
+    home: ExportHome;
   }
 }

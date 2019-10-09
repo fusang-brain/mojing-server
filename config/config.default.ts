@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo): MeYupConfig => ({
   
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security
-  keys: appInfo.name + '_1553332432157_7228',
+  keys: appInfo.name + '_1553332432157_7228_1',
   version: packageConfig.version,
   security: {
     csrf: false,
