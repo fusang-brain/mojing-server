@@ -1,9 +1,9 @@
 import { Service } from 'egg';
-import { NotFoundError } from '../exception';
+import { NotFoundError, ActionError } from '../exception';
 import { getPagerParams, pagedResultBuild, buildCondition, getMainConnection } from '../common/query.model';
 import { IEnterprise } from '../model/Enterprise';
 import { PaymentMethod } from '../model/EnterprisePayment';
-import { genOrderNO } from '../utils/tools';
+import { genOrderNO, String2PinYin } from '../utils/tools';
 import moment from 'moment';
 import ms from 'ms';
 
@@ -21,7 +21,7 @@ export default class Enterprise extends Service {
   }
 
   async createWithPayment(license: ('free'|'pro'), payKind: PaymentMethod, data: any, years?: number) {
-    const { model, app: { mongooseDB } } = this.ctx;
+    const { model, app: { mongooseDB }, userState } = this.ctx;
     const now = moment();
     const _years = years || 1;
     let money = 0;
@@ -34,7 +34,7 @@ export default class Enterprise extends Service {
     session.startTransaction();
     try {
       // 生成企业
-      const created = await model.Enterprise.create([{ ...data }], { session });
+      const created = await model.Enterprise.create([{ ...data, slug: String2PinYin(data.name) }], { session });
 
       // 生成企业证书购买记录
       const theLicense = await model.EnterpriseLicenseRecord.create([{
@@ -56,7 +56,13 @@ export default class Enterprise extends Service {
         created[0].expiredAt = now.add(ms(theLicense[0].dataline)).toDate();
         await created[0].save({ session });
       }
-      
+
+      // 建立企业、人员关联
+      const foundUser = await model.User.findOne({
+        _id: userState.uid,
+      });
+      foundUser.enterprises.push(created[0]._id);
+      await foundUser.save({ session });
       await session.commitTransaction();
       session.endSession();
 
@@ -65,11 +71,11 @@ export default class Enterprise extends Service {
         enterprise: created[0],
       }
     } catch (e) {
+      
       await session.abortTransaction();
       session.endSession();
+      throw new ActionError('error action');
     }
-
-    return null;
   }
 
   async findListByUserID(id: string) {

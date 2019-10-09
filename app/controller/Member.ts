@@ -12,7 +12,7 @@ export default class MemberController extends Controller {
         password:{type:'string',required:true },
     })
     async createMember() {
-      const { app,ctx } = this;//ctx 请求级  上下文信息    app  全局对象
+      const { app, ctx } = this;//ctx 请求级  上下文信息    app  全局对象
       const { service } = ctx;
       const member = await service.member.createMember(ctx.request.body);
 

@@ -8,7 +8,7 @@ export const UserDTOValidateRules: RuleOptions = {
     rule: {
       password: {
         type: 'string',
-        required: false,
+        required: true,
       },
       email: {
         type: 'email',

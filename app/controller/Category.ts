@@ -16,7 +16,7 @@ export default class CategoryController extends Controller {
     async createCategory() {
         const { ctx } = this;
         const { service } = ctx;
-        const message =  await service.category.createCategory(ctx.request.body);
+        const message = await service.category.createCategory(ctx.request.body);
         ctx.body = {
             message:message,
         }
