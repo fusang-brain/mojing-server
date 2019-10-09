@@ -1,5 +1,5 @@
 import { Service } from 'egg';
-import { ShopCartDTO, PutShopCartDTO } from '../dto/ShopCart';
+import { ShopCartDTO, PutShopCartDTO } from '../dto/shopCart';
 import lodash from 'lodash';
 
 
