@@ -88,7 +88,7 @@ export default (appInfo: EggAppInfo): MeYupConfig => ({
       port: 6379,
       host: 'localhost',
       db: 0,
-      password: 'auth',
+      password: '',
     },
   }
 });
