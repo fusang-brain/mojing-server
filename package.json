@@ -33,7 +33,7 @@
     "@types/ms": "^0.7.30",
     "@types/request": "^2.48.1",
     "@types/uuid": "^3.4.4",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "egg": "^2.6.1",
     "egg-jwt": "^3.1.6",
     "egg-mongoose": "^3.1.1",
